@@ -17,3 +17,4 @@ All information about the course will be posted here.
 ## News
 
 * **Jan 22** - Welcome back!
+* **Hello**
