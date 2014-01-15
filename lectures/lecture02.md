@@ -14,7 +14,7 @@ A client sends a request to a server, and the server sends back a response. That
 
 HTTP requests consist of an *action*, a *resource identifier*, *headers*, and (optionally) a *body*.
 
--   The action describes the kind of request. Examples of actions are GET (retrieve a resource), PUT (send a resource), DELETE (delete a resource), etc.
+-   The action &mdash; also called a *method* &mdash; describes the kind of request. Examples of actions are GET (retrieve a resource), PUT (send a resource), DELETE (delete a resource), etc.
 -   The resource identifier describes what resource on the server is being accessed.
 -   The headers provide metadata about the request. For example, if a PUT action is being done, the Content-Type header would describe what kind of data is being sent.
 -   The body is the information payload of the message. For example, if the client is using PUT to send an image, then the body would contain the binary image data.
