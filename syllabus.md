@@ -12,7 +12,7 @@ CS 496 - Web and Mobile Application Development
 
 Instructors:
 
--   [David Babcock](http://faculty.ycp.edu/~dbabcock/), <dbabcock@ycp.edu> <br /> Office hours (KEC 101): TBD
+-   [David Babcock](http://faculty.ycp.edu/~dbabcock/), <dbabcock@ycp.edu> <br /> Office hours (KEC 101): M 1-3, T 2-3, W 11-12, Th 2-3, F 9-10, or by arrangement
 -   [David Hovemeyer](http://faculty.ycp.edu/~dhovemey/), <dhovemey@ycp.edu> <br /> Office hours (KEC 113): TBD
 
 Course Description
@@ -35,7 +35,6 @@ Topics will include:
 -   Mobile application lifecycle
 -   Mobile UI's
 -   Data persistence/mobile database
--   Content providers
 
 Prerequisites
 -------------
@@ -52,7 +51,7 @@ Course Structure and Expectations
 
 Class time will be spent primarily on discussion of reading topics and work on labs and other assignments. In general, we will avoid giving lectures. It is very important that you do the reading; otherwise, it will be difficult for us to use the class time effectively.
 
-Each reading assignment will be accompanied by one or more self-test exercises. By doing these exercises, you can ensure that you have a basic understanding of the topic covered in the reading.
+Completing the in-class labs is very important, because this will be the primary way we will cover the fundamental techniques that you will need to use in your team project.  If you do not complete a lab in class, we expect you to complete it on your own outside of class.
 
 Learning Outcomes
 -----------------
@@ -75,18 +74,20 @@ Grades are assigned on a 100-point scale:
 > Numeric Range|Letter Grade
 > -------------|------------
 > 90-100|A (4.0)
-> 85-90|B+ (3.5)
-> 80-85|B (3.0)
-> 75-80|C+ (2.5)
-> 70-75|C (2.0)
+> 87-90|B+ (3.5)
+> 80-87|B (3.0)
+> 77-80|C+ (2.5)
+> 70-77|C (2.0)
 > 60-70|D (1.0)
 > 0-60|F (0.0)
 
 Your overall grade for the course will be determined as follows:
 
--   Individual homework: 30%
+-   Individual homework: 30% **(&dagger;)**
 -   Team project: 65% **(\*)**
 -   Attendance and participation: 5%
+
+**(&dagger;)** You must make a good faith effort to complete all of the individual assignments.  We reserve the right to assign a failing grade for the course to any student who does not do this.
 
 **(\*)** You must make a substantial *technical* contribution to your team software project. Although the non-technical contributions you make to your project, such as planning, communication, and organization, are important, you must also make a substantial contribution to the design and implementation of the software. We reserve the right to assign a failing grade for the course to any student who does not do this.
 
@@ -96,7 +97,7 @@ Please check the course web page, <http://ycpcs.github.io/cs496-spring2014/>, re
 
 ### Reading Assignments
 
-Reading assignments are posted on the [Reading Assignments Page](reading.html). Each reading assignment will be posted at least 1 week before the class in which the topic will be covered.
+Reading assignments are posted in the [Schedule](schedule.html). Each reading assignment will be posted at least 1 week before the class in which the topic will be covered.
 
 We expect you to do each reading **before** class.
 

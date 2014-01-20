@@ -85,3 +85,5 @@ The **DELETE** verb deletes the resource named by a resource.
 For example, a **DELETE** request specifying the path `/fruit/Kumquats`
 would delete `Kumquats` as a fruit, and no further requests to
 access that resource would succeed.
+
+TODO: persistence layer (implementation using in-memory data structures)

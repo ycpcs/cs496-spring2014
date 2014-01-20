@@ -13,6 +13,7 @@ All information about the course will be posted here.
 * [Syllabus](syllabus.html)
 * [Schedule](schedule.html)
 * [Lecture notes](lectures/index.html)
+* [Assignments](assign/index.html)
 
 ## News
 
