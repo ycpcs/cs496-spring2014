@@ -10,10 +10,15 @@ CS 496 - Web and Mobile Application Development
 
 **Spring 2014**
 
+Class times:
+
+- Section 101 (Babcock), T/Th 11AM - 12:15PM in KEC 119
+- Section 102 (Hovemeyer), T/Th 11AM - 12:15PM in KEC 124
+
 Instructors:
 
 -   [David Babcock](http://faculty.ycp.edu/~dbabcock/), <dbabcock@ycp.edu> <br /> Office hours (KEC 101): M 1-3, T 2-3, W 11-12, Th 2-3, F 9-10, or by arrangement
--   [David Hovemeyer](http://faculty.ycp.edu/~dhovemey/), <dhovemey@ycp.edu> <br /> Office hours (KEC 113): TBD
+-   [David Hovemeyer](http://faculty.ycp.edu/~dhovemey/), <dhovemey@ycp.edu> <br /> Office hours (KEC 113): M/T/W/Th 2-3 PM, F 10-11 AM, or by arrangement
 
 Course Description
 ------------------
