@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lecture 4: Basic Mobile Framework"
+title: "Lecture 4: Basic mobile framework"
 ---
 
 Android

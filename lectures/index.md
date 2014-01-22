@@ -14,3 +14,4 @@ If you find any mistakes, please [let us know](mailto:dhovemey@ycp.edu).
 - [Lecture 2: Web services](lecture02.html)
 - [Lecture 3: RESTful Web Services](lecture03.html)
 - [Lecture 4: Basic Mobile Framework](lecture04.html)
+- [Lecture 5: RESTful mobile requests](lecture05.html)

@@ -12,7 +12,7 @@ announced in class and on the course web page.
 > Tues, Jan 28  | [Lecture 2: Web Services](lectures/lecture02.html) | [Understanding Web Services](http://www.alistapart.com/articles/webservices/) by Patrick Cooney (note: a bit dated)
 > Thurs, Jan 30 | [Lecture 3: RESTful web services](lectures/lecture03.html) | [Building Web Services the REST Way](http://www.xfront.com/REST-Web-Services.html) by Roger L. Costello
 > Tues, Feb 4 | [Lecture 4: Basic mobile framework](lectures/lecture04.html) | [Creating an Android Project](http://developer.android.com/training/basics/firstapp/creating-project.html), [Running Your App](http://developer.android.com/training/basics/firstapp/running-app.html)
-> Thurs, Feb 6 | Lecture 5: RESTful mobile requests
+> Thurs, Feb 6 | [Lecture 5: RESTful mobile requests](lectures/lecture05.html) | 
 > Tues, Feb 11 | Lecture 6: Mobile UI, part I
 > Thurs, Feb 13 | Lecture 7: Mobile UI, part II
 > Tues, Feb 18 | Lecture 8: HTML and CSS
