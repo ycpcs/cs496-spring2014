@@ -7,7 +7,7 @@ This page lists the assignments and due dates.
 
 > Assignment | Type | File(s) | Due
 > ---------- | ---- | ------- | ---
-> Assignment 1: Web Service | Individual | TBD | Tues, Feb 11th by 11:59 PM
+> [Assignment 1: Web Service](assign01.html) | Individual | TBD | Tues, Feb 11th by 11:59 PM
 > Assignment 2: Mobile App | Individual | TBD | Tues, Feb 25th by 11:59 PM
 > Assignment 3: Team Project Proposal | Team | n/a | Wed, Mar 12th by 11:59 PM
 > Assignment 4: Web Application | Individual | TBD | Tues, Mar 18th by 11:59 PM
