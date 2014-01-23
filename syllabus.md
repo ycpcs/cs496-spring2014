@@ -3,8 +3,6 @@ layout: default
 title: Home Page
 ---
 
-*Preliminary syllabus: not official*
-
 CS 496 - Web and Mobile Application Development
 ===============================================
 
