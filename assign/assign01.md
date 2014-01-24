@@ -147,7 +147,6 @@ Because this is an interface, it can be implemented in a variety of ways.  For t
         }
     }
 
-
 The **Database** class provides access to the object that implements the **IDatabase** interface:
 
     /**
@@ -166,7 +165,7 @@ The **Database** class provides access to the object that implements the **IData
         }
     }
 
-TODO: talk about how to modify the persistence layer to support the other REST operations.
+The idea is that the single instance of **IDatabase** can be changed from being a **FakeDatabase** object to a real database at some future point without affecting any of the code that uses the persistence layer.  (You won't need to do this for this assignment.)
 
 Testing
 -------
@@ -191,13 +190,18 @@ Note that using the **-X POST** option will send a **POST** request.
 Hints
 -----
 
+The Jackson library has a class called [ObjectMapper](http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/ObjectMapper.html) which transparently converts between POJOs ("Plain Old Java Objects") and JSON representations.  You can use the **JSON.getObjectMapper()** to get a singleton instance of the **ObjectMapper** class.
+
 Reading an JSON document encoded in the body of an HTTP request:
 
     // FIXME: need code here
 
 Writing a Java object as a JSON object:
 
-    // FIXME: need code here
+    // Assume that item is a POJO representing an inventory item
+    Item item = ...
+    Writer writer = ...
+    JSON.getObjectMapper().writeValue(writer, item);
 
 Writing an array of Java objects as a JSON array:
 
