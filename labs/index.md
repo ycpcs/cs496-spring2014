@@ -9,4 +9,4 @@ Although the labs are not graded and you are not required to submit them, they a
 
 > Date | Lab | File(s)
 > ---- | --- | -------
-> Jan 28 | [Lab 1: Basic Web Service](lab01.html) | [CS496\_Jetty.zip](../assign/CS496_Jetty.zip) <br /> [CS496\_Lab01.zip](CS496_Lab01.zip)
+> Jan 28 | [Lab 1: Basic Web Service](lab01.html) | [CS496\_Jetty.zip](../assign/CS496_Jetty.zip), [CS496\_Lab01.zip](CS496_Lab01.zip)

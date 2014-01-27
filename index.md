@@ -18,5 +18,4 @@ All information about the course will be posted here.
 
 ## News
 
-* **Jan 23** - Changes should be in reverse chronological order.
 * **Jan 22** - Welcome back!
