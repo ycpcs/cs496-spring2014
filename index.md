@@ -14,6 +14,7 @@ All information about the course will be posted here.
 * [Schedule](schedule.html)
 * [Lecture notes](lectures/index.html)
 * [Assignments](assign/index.html)
+* [Labs](labs/index.html)
 
 ## News
 
