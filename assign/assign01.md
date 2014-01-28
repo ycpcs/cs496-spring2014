@@ -3,8 +3,6 @@ layout: default
 title: "Assignment 1: Web Service"
 ---
 
-*Note: preliminary assignment description, not official*
-
 **Due:** Tuesday, Feb 11th by 11:59 PM
 
 This is an **individual** assignment
@@ -192,22 +190,38 @@ Hints
 
 The Jackson library has a class called [ObjectMapper](http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/ObjectMapper.html) which transparently converts between POJOs ("Plain Old Java Objects") and JSON representations.  You can use the **JSON.getObjectMapper()** to get a singleton instance of the **ObjectMapper** class.
 
-Reading an JSON document encoded in the body of an HTTP request:
+Reading an JSON object (corresponding to an instance of a model class, in this case an **Item** object) encoded in the body of an HTTP request:
 
-    // FIXME: need code here
+    Reader reader = req.getReader();
+    Item item = JSON.getObjectMapper().readValue(req.getReader(), Item.class);
 
-Writing a Java object as a JSON object:
+Writing a Java object as a JSON object to the body of an HTTP response (assumes that **resp** is an **HttpServletResponse**):
 
     // Assume that item is a POJO representing an inventory item
     Item item = ...
-    Writer writer = ...
+    Writer writer = resp.getWriter();
     JSON.getObjectMapper().writeValue(writer, item);
 
-Writing an array of Java objects as a JSON array:
+Writing an array of Java objects as a JSON array (in this case, taking a **List** of **Item** objects, converting it to a Java array, and writing the Java array as JSON):
 
-    // FIXME: need code here
+    List<Item> itemList = ...
+    Item[] itemListAsArray = itemList.toArray(new Item[itemList.size()]);
+    Writer writer = resp.getWriter();
+    JSON.getObjectMapper().writeValue(writer, itemListAsArray);
 
 Submitting
 ==========
 
-FIXME: information needed
+Select the **CS496\_Assign01** project, then click the blue up arrow icon, and enter your Marmoset username and password when prompted.
+
+Alternatively, export the **CS496\_Assign01** project to a zipfile, and upload the zipfile to Marmoset as **assign01**:
+
+> [https://cs.ycp.edu/marmoset](https://cs.ycp.edu/marmoset)
+
+<div class="callout">
+<b>Important</b>: please do <b>not</b> submit the <b>CS496_Jetty</b> project as part of your submission.  Only submit <b>CS496_Assign01</b>.
+</div>
+
+<!-- vim:set wrap: ­-->
+<!-- vim:set linebreak: -->
+<!-- vim:set nolist: -->
