@@ -124,7 +124,7 @@ The **PerformOperation** class is a controller which takes an **Operation** and 
 Your Task
 =========
 
-Your task is to a Java servlet to accept HTTP requests from clients and perform the requested operation.
+Your task is to implement a Java servlet to accept HTTP requests from clients and perform the requested operation.
 
 The servlet will accept requests in two forms as described below.
 
@@ -132,7 +132,7 @@ The example URLs below assume that the web service is reached via the URL
 
 > http://localhost:8081/
 
-The servlet that handles both forms of request is defined in the class **edu.ycp.cs496.lab01.servlets.Op**, and is accesed via the path **/op** as described below.
+The servlet that handles both forms of requests is defined in the class **edu.ycp.cs496.lab01.servlets.Op**, and is accesed via the path **/op** as described below.
 
 First Request Form
 ------------------
@@ -166,14 +166,14 @@ You can use the **Double.parseDouble** static method to convert a string to a **
     String firstAsString = req.getParameter("first");
     double first = Double.parseDouble(firstAsString);
 
-Use the query parameters to create an **Operation** object representing the overall request:
+Use the converted query parameters to create an **Operation** object representing the overall request:
 
     Operation op = new Operation();
     op.setOperationType(...);
     op.setFirst(...);
     op.setSecond(...);
 
-Use a **PerformOperation** controller object to perform the operation, producing a **Result** object:
+Use a **PerformOperation** controller object to perform the requested operation, producing a **Result** object:
 
     PerformOperation controller = new PerformOperation();
     Result result = controller.perform(op);
