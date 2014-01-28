@@ -179,7 +179,7 @@ Let's say that you have a text file called **replaceApples.txt** with the follow
 
 You can send this as the body of a **PUT** request using the following **curl** command:
 
-    curl -X PUT -d @replaceApples.txt http://localhost:8080/inventory/Apples
+    curl -X PUT -d @replaceApples.txt http://localhost:8081/inventory/Apples
 
 Note that you must run the command from the directory containing **replaceApples.txt**.
 
