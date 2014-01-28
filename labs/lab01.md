@@ -141,7 +141,7 @@ The **Op** servlet should accept **GET** requests where the request is specified
 
 Because this servlet accepts **GET** requests and takes its parameters as part of the URL, you can access and test this servlet directly from a web browser.
 
-For example, a request the the URL
+For example, a request to the URL
 
 > http://localhost:8081/op/?type=ADDITION&first=3&second=4.5
 
