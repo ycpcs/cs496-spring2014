@@ -188,6 +188,12 @@ Note that using the **-X POST** option will send a **POST** request.
 Hints
 -----
 
+Note that the correct content type for JSON-encoded data (according to [RFC 4627](http://www.ietf.org/rfc/rfc4627.txt)) is **application/json**.  So, when returning JSON data in an HTTP response, make sure to call
+
+    resp.setContentType("application/json");
+
+where **resp** is the **HttpServletResponse** object.
+
 The Jackson library has a class called [ObjectMapper](http://fasterxml.github.io/jackson-databind/javadoc/2.2.0/com/fasterxml/jackson/databind/ObjectMapper.html) which transparently converts between POJOs ("Plain Old Java Objects") and JSON representations.  You can use the **JSON.getObjectMapper()** to get a singleton instance of the **ObjectMapper** class.
 
 Reading an JSON object (corresponding to an instance of a model class, in this case an **Item** object) encoded in the body of an HTTP request:
