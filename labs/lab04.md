@@ -14,22 +14,60 @@ Since Android applications are written in Java, any standard Java IDE can be use
 Android Virtual Devices (AVD)
 -----------------------------
 
-In order to test our Android applications (since we do not have actual Android devices) we will need to create an *Android Virtual Device* (AVD). This emulator will then be invoked and the corresponding *.apk* file downloaded to the emulator when we run our application. To create an AVD (the given example values are the ones we will use in this class):
+In order to test our Android applications (since we do not have actual Android devices) we will need to create an *Android Virtual Device* (AVD). This emulator will then be invoked and the corresponding *.apk* file downloaded to the emulator when we run our application. 
 
--   In Eclipse select *Window -\> Android Virtual Device Manager*
+Activity
+========
+
+Obtain ADT
+----------
+
+Obtain a flash drive from the instructor that contains the eclipse ADT bundle, the Android 2.3.3 (Gingerbread) SDK, and the tools needed for Android development (e.g. AVD Manager).
+
+> ![image](images/lab04/flashdrive.png)
+
+In the **Android_ADT** directory there will be a batch file named **eclipse.bat** (which configures the SDK path to use the flash drive). Double click this file to launch Eclipse. Set your workspace to somewhere on your network drive, e.g. **H:\My Documents\CS496\Android**. 
+
+Create AVD
+----------
+
+To create an AVD, we will use the AVD Manager through Eclipse (the given example values are the ones we will use in this class):
+
+-   Select the Android Virtual Device Manager in the Eclipse toolbar
+
+> ![image](images/lab04/EclipseAVD.png)
+
 -   Select a *New* AVD from the top button on the right side
--   Give the AVD a meaningful name, e.g. **Test\_AVD**
--   From the *Target* dropdown box, select the desired API level the emulator should use, e.g. **Android 2.3.3 - API Level 10**
--   In the *SD Card* box, make a small sized virtual SD Card, e.g. **10** MiB
--   In the *Skin* box, choose a built-in device resolution, e.g. **WQVGA432**
--   Select *Create AVD*
+-   Configure an AVD using the following settings:
+	-   Give the AVD any name you wish, e.g. **CS496_AVD**
+	-   From the *Device* dropdown box, select the desired device/screen resolution, e.g. **4.0" WVGA (480 x 800: hdpi)**
+	-   From the *Target* dropdown box, select the desired API level the emulator should use, e.g. **Android 2.3.3 - API Level 10**
+	-   In the *SD Card* box, make a small sized virtual SD Card, e.g. **10** MiB
+	-   Check the **Snapshot** checkbox such that the current state of the emulator will be saved when the emulator is closed - **THIS WILL MAKE THE EMULATOR MUCH FASTER WHEN STARTING UP!**
+	-   Select *OK*
+
+> ![image](images/lab04/AVDcreate.png)
+
+Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster.
+
+> ![image](images/lab04/emulator.png)
 
 You can create as many AVD's as you wish to test your application on a range of different API's and device resolutions.
 
-Android Application File Structure
-----------------------------------
+Hello World!
+------------
 
-Android applications use a similar directory structure as other Java applications:
+To create a basic Android application simply choose **File -> New -> Android Application Project**. Set the following configuration values
+
+-   Give the application the name **Hello CS496** (which will automatically set the project name)
+-   Change the Package name to **edu.ycp.cs.cs496.helloCS496**. 
+-   Set all the SDK dropdowns to **API10: Android 2.3.3 (Gingerbread)**
+-   Change the **Theme** to **None** (since they are not supported in versions below API 11)
+-   Click **Next>** to accept the defaults on all subsequent windows
+
+> ![image](images/lab04/newapp.png)
+
+This should create a simple Android application. You will notice that Android applications use a similar directory structure as other Java applications. Some folders to note are:
 
 -   *src* - where component source files are located
 -   *assets* - where any files used by the application can be placed, e.g. database files
@@ -41,34 +79,31 @@ Android applications use a similar directory structure as other Java application
 
 The other directories contain auto-generated files for the application. Additionally, the **AndroidManifest.xml** file contains a list of all components the application will use along with permissions for services, etc.
 
-Activity
-========
+> ![image](images/lab04/eclipsebasic.png)
 
--   Obtain the ADT bundle zip file from the instructor and extract it onto the USB flash drive.
--   Inside the extracted directory should be an **eclipse** subdirectory with the **Eclipse** executable. Launch Eclipse from this subdirectory and place the workspace in a convenient folder on your **H:** drive, e.g. **H:\My Documents\android**.
+At this point you should be able to run this application (select the green arrow in the Eclipse toolbar and choose **Android Application** in the **Run As** dialog) which will start the simulator (from the last snapshot), load the application onto the simulator, and launch the application.
 
-Starting point code: [CS496\_Lab03.zip](CS496_Lab03.zip).
+> ![image](images/lab04/helloworld.png)
 
-Your task is to duplicate the functionality from [lab01](lab01.html) in an Android application. However now instead of obtaining the street addresses and zip codes from the terminal, in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets from the Activity's UI (refer to *res/layout/main.xml* for the corresponding *id*'s of the widgets). Once the HTTP requests are generated and the XML responses are parsed using an XPath object, the result can be computed and displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
+Hello CS496!
+------------
 
-> ![image](images/lab03/FirstWebService.png)
+Select the **activity_main.xml** tab in Eclipse and the **activity_main.xml** tab at the bottom of the editor window which will show you the XML for the layout of the main app window. The text that is displayed in the app is stored in the **hello_world** resource element of the **string** asset. This is a good practice for any static text as it allows for localization of your applications.
 
-As a reminder of the geocoding API:
+> ![image](images/lab04/activityxml.png)
 
-> <http://www.geonames.org/export/free-geocoding.html>
+To change the value of this field
 
-You will need to use the following parameters:
+-   Expand the **res** folder
+-   Expand the **values** subfolder
+-   Select the **strings.xml** file
+-   Select the **hello_world** element
+-   Change the **value** field from "Hello World!" to "Hello CS496!\nAwesome!"
 
--   **postalcode** - the zip code
--   **placeName** - the street address
--   **country** - should be set to "US"
+> ![image](images/lab04/strings.png)
 
-The result is an XML-encoded document in the format shown above in the XML section.
+Now if you run the application you should see the following:
 
-You can find the (approximate) distance in miles between two points (*lat1,lng1* and *lat2,lng2*) using the following formula:
+> ![image](images/lab04/hello496.png)
 
-    double dist = 3956 * 2 * Math.asin(
-            Math.sqrt(
-                Math.pow(Math.sin((lat1 - lat2)*Math.PI / 180 / 2), 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat1 * Math.PI / 180) *
-                Math.pow(Math.sin((lng1 - lng2) * Math.PI / 180 / 2), 2)));
+Congratulations! You've just written your first Android app (without a single line of code). Next we will learn how to use the Android framework to communicate with a web service and enhance the UI of the app.
