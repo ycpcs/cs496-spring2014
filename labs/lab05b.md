@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lab 6: RESTful Android requests"
+title: "Lab 5b: RESTful Android Requests"
 ---
 
 The lab activity is described in the Activity\_ section below.
@@ -37,7 +37,7 @@ Here the method **.findViewById()** accesses the resources of the application th
 HTTP requests in Android
 ------------------------
 
-Since Android applications are written in Java, we can utilize many of the same classes as we did on the PC when accessing web services. Thus we can issue requests and receive responses (possibly in JSON or XML) and process them in a similar fashion. In particular, we can use the same [Apache HttpComponents](http://hc.apache.org/). discussed in [Lab 4](lab04.html) (For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).) Hence an example web request to the geocoding service from [Lab 4](lab04.html) might be
+Since Android applications are written in Java, we can utilize many of the same classes as we did on the PC when accessing web services. Thus we can issue requests and receive responses (possibly in JSON or XML) and process them in a similar fashion. In particular, we can use the same [Apache HttpComponents](http://hc.apache.org/). discussed in [Lab 5a](lab05a.html) (For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).) Hence an example web request to the geocoding service from [Lab 5a](lab05a.html) might be
 
     // Create HTTP client
     HttpClient client = new DefaultHttpClient();
@@ -78,9 +78,9 @@ Note: If the JSON contains a list of objects, as long as our **POJO** contains a
 Activity
 ========
 
-Your task is to duplicate the functionality from [Lab 4](lab04.html) in an Android application.
+Your task is to duplicate the functionality from [Lab 5a](lab05a.html) in an Android application.
 
-Starting point code: [CS496\_Lab06.zip](CS496_Lab06.zip). You should add code to **MainActivity.java**.
+Starting point code: [CS496\_Lab05b.zip](CS496_Lab05b.zip). You should add code to **MainActivity.java**.
 
 As a reminder of the geocoding API:
 
@@ -97,17 +97,15 @@ Since this application will require access to the Internet, we must tell Android
 
 Hence the XML should look like
 
-{% highlight xml %}
-...
-<uses-sdk
-	android:minSdkVersion="10"
-	android:targetSdkVersion="10" />
-
-<uses-permission android:name="android.permission.INTERNET" />
-<application
-	android:allowBackup="true"
-...
-{% endhighlight %}
+    ...
+    <uses-sdk
+    	android:minSdkVersion="10"
+    	android:targetSdkVersion="10" />
+    
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+    	android:allowBackup="true"
+    ...
 
 Model and Controller classes
 ----------------------------
@@ -129,7 +127,7 @@ Then the **getText()** method can be called on the **EditText** object to retrie
 Creating HTTP request
 ---------------------
 
-The HTTP request can be created in a similar fashion to [Lab 4](lab04.html) by creating a **List** of **NameValuePair** objects corresponding to the necessary parameters and values needed for the request. 
+The HTTP request can be created in a similar fashion to [Lab 5a](lab05a.html) by creating a **List** of **NameValuePair** objects corresponding to the necessary parameters and values needed for the request. 
 
 You will need to have key/value pairs for the following parameters:
 
@@ -149,7 +147,7 @@ You can find the (approximate) distance in miles between two **PostalCode** obje
 
 The value stored in the **Result** object can then be displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
 
-> ![image](images/lab06/MobileGeo.png)
+> ![image](images/lab05b/MobileGeo.png)
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
