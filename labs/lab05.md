@@ -9,7 +9,7 @@ Background
 Android ADT bundle (ADT)
 ------------------------
 
-Since Android applications are written in Java, any standard Java IDE can be used or development. However, Google provides plug-ins for Eclipse as well as a preconfigured IDE [Android Developer Tools (ADT)](http://developer.android.com/sdk/index.html). There is also an early release development environment called [Android Studio](http://developer.android.com/sdk/installing/studio.html) based on the IntelliJ IDEA development environment. For this class, we will be using the Eclipse ADT bundle.
+Since Android applications are written in Java, any standard Java IDE can be used for development. However, Google provides plug-ins for Eclipse as well as a preconfigured Eclipse IDE environment package [Android Developer Tools (ADT)](http://developer.android.com/sdk/index.html). There is also an early release development environment called [Android Studio](http://developer.android.com/sdk/installing/studio.html) based on the IntelliJ IDEA development environment. For this class, we will be using the Eclipse ADT bundle.
 
 Android Virtual Devices (AVD)
 -----------------------------
@@ -48,7 +48,7 @@ To create an AVD, we will use the AVD Manager through Eclipse (the given example
 
 > ![image](images/lab05/AVDcreate.png)
 
-Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster.
+Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster. Eventually you should see the following emulator window.
 
 > ![image](images/lab05/emulator.png)
 
@@ -60,10 +60,10 @@ Hello World!
 To create a basic Android application simply choose **File -> New -> Android Application Project**. Set the following configuration values
 
 -   Give the application the name **Hello CS496** (which will automatically set the project name)
--   Change the Package name to **edu.ycp.cs.cs496.helloCS496**. 
--   Set all the SDK dropdowns to **API10: Android 2.3.3 (Gingerbread)**
+-   Change the Package name to **edu.ycp.cs.cs496.helloCS496** 
+-   Set all the SDK dropdowns to **API 10: Android 2.3.3 (Gingerbread)**
 -   Change the **Theme** to **None** (since they are not supported in versions below API 11)
--   Click **Next>** to accept the defaults on all subsequent windows
+-   Click **Next >** to accept the defaults on all subsequent windows
 
 > ![image](images/lab05/newapp.png)
 
@@ -74,7 +74,7 @@ This should create a simple Android application. You will notice that Android ap
 -   *res* - resource file directories
 
     > -   *drawable-*\* for various image files (e.g. program and button icons). The different *\*dpi* subdirectories allow for different icons to be used depending on the resolution of the device the application is being run on.
-    > -   *layout* - contains the XML layout files for each Activity used in the application, e.g. **main.xml** for a single Activity application
+    > -   *layout* - contains the XML layout files for each Activity used in the application, e.g. **activity_main.xml** for a single Activity application
     > -   *values* - contains XML files for any static values the application uses, e.g. **strings.xml** for static string constants.
 
 The other directories contain auto-generated files for the application. Additionally, the **AndroidManifest.xml** file contains a list of all components the application will use along with permissions for services, etc.

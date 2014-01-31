@@ -11,7 +11,7 @@ Background
 Android UI Widgets
 ------------------
 
-Most views in an Android application contain various UI widgets that allow user interaction with the program. The types of widgets and their layout can be described either through XML files (good for static layouts) or created dynamically at run time programatically (good for dynamic layouts). We will explore designing UI layouts later in the course. For this lab, the view layout is contained in the *res/layout/main.xml* file which will be loaded by the activity's **.onCreate()** method. An example file for a basic application that simply displays a single line of text is:
+Most views in an Android application contain various UI widgets that allow user interaction with the program. The types of widgets and their layout can be described either through XML files (good for static layouts) or created dynamically at run time programatically (good for dynamic layouts). We will explore designing UI layouts later in the course. For this lab, the view layout is contained in the *res/layout/activity_main.xml* file which will be loaded by the activity's **.onCreate()** method. An example file for a basic application that simply displays a single line of text is:
 
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -32,7 +32,7 @@ Note that the *TextView* (which is basically a label) can be referred to in the 
     TextView label = (TextView) findViewById(R.id.helloLabel);
     label.SetText("How are you?");
 
-Here the method **.findViewById()** accesses the resources of the application through the *R* object. Note the correspondance between the requested *id* and the one specified in the XML file.
+Here the method **.findViewById()** accesses the resources of the application through the *R* object (which contains all of the resources included in the app). Note the correspondance between the requested *id* and the one specified in the XML file.
 
 HTTP requests in Android
 ------------------------
@@ -64,12 +64,12 @@ Since Android applications are written in Java, we can utilize many of the same 
     // Obtain the response body
     HttpEntity entity = response.getEntity();
 
-At this point, the web service has provided a JSON or XML response that we need to extract from the response payload and parse accordingly. Since Android is Java based, we can use the same **ObjectMapper** objects from the [Jackson](https://github.com/FasterXML/jackson) libraries to create Java objects from the JSON response.
+At this point, the web service has provided a JSON or XML response that we need to extract from the response payload and parse accordingly (after verifying the status code of the response). Since Android is Java based, we can use the same **ObjectMapper** class from the [Jackson](https://github.com/FasterXML/jackson) libraries to create Java objects from the JSON response.
 
 Parsing JSON
 ------------
 
-To convert the **HttpEntity** object to JSON, we will extract the contents of the response body, use **JSON.getObjectMapper()** to get an **ObjectMapper** method, then use **readValue** to read the JSON-encoded representation:
+To convert the **HttpEntity** object to JSON, we will extract the contents of the response body, use the **JSON.getObjectMapper()** method as before, and call the **readValue()** method (using **getContents()** on the entity extracted from the response) to convert the JSON-encoded response body to Java objects:
 
     MyClass myObj = JSON.getObjectMapper().readValue(resp.getContents(), MyClass.class);
     
@@ -78,24 +78,76 @@ Note: If the JSON contains a list of objects, as long as our **POJO** contains a
 Activity
 ========
 
-Starting point code: [CS496\_Lab06.zip](CS496_Lab06.zip).
+Your task is to duplicate the functionality from [Lab 4](lab04.html) in an Android application.
 
-Your task is to duplicate the functionality from [Lab 4](lab04.html) in an Android application. However now instead of obtaining the street addresses and zip codes from the terminal, in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets from the Activity's UI (refer to *res/layout/activity_main.xml* for the corresponding *id*'s of the widgets). Once the HTTP requests are generated and the JSON responses are parsed using an **ObjectMapper**, the result can be computed and displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
-
-> ![image](images/lab06/MobileClient.png)
+Starting point code: [CS496\_Lab06.zip](CS496_Lab06.zip). You should add code to **MainActivity.java**.
 
 As a reminder of the geocoding API:
 
 > <http://www.geonames.org/export/free-geocoding.html>
 
-You will need to use the following parameters:
+Internet Access
+---------------
+
+**IMPORTANT**
+
+Since this application will require access to the Internet, we must tell Android to **allow permission** for Internet access. This is done in the **AndroidManifest.xml** file (be sure to select the **AndroidManifest.xml** tab at the bottom of the editor window to view the XML text). Thus we need to add the following line just before the **<application** tag
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+Hence the XML should look like
+
+    ...
+    <uses-sdk
+        android:minSdkVersion="10"
+        android:targetSdkVersion="10" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application
+        android:allowBackup="true"
+    ...
+
+Model and Controller classes
+----------------------------
+
+Since the underlying object and controller classes are identical to the terminal web client from [Lab 4](lab04.html), we simply need to link the model and controller class packages via the build path. 
+
+
+Note how separating the model and controller classes from the UI allows for them to be easily shared between projects
+
+Data input from widgets
+-----------------------
+
+Instead of obtaining the street addresses and zip codes from the terminal (via a keyboard scanner), in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets specified in the Activity's UI (refer to **res/layout/activity_main.xml** for the corresponding **id**'s of the widgets). For example, to get an object corresponding to the text box for the first street address
+
+    EditText firstStreet = (EditText) findViewById(R.id.firstStreet);
+
+Then the **getText()** method can be called on the **EditText** object to retrieve the text currently in the text box (as an [Editable](http://developer.android.com/reference/android/text/Editable.html) object which can be converted to a string via the **toString()** method).
+
+Creating HTTP request
+---------------------
+
+The HTTP request can be created in a similar fashion to [Lab 4](lab04.html) by creating a **List** of **NameValuePair** objects corresponding to the necessary parameters and values needed for the request. 
+
+You will need to have key/value pairs for the following parameters:
 
 -   **postalcode** - the zip code
 -   **placeName** - the street address
 -   **country** - should be set to "US"
 -   **username** - should be set to **ycpcs_cs496**
 
+Once the parameter list is created, you can define a **URI** object and use it to construct an **HttpGet** request which is executed through the **HttpClient** object's **execute()** method. The return value should be stored in an **HttpResponse** object.
+
+Parsing the returned JSON data
+------------------------------
+
+The HTTP JSON response can be parsed using an **ObjectMapper** using the **PostalCodes** model class (which simply contains a **List** of **PostalCode** objects that represent the data for each location).
+
 You can find the (approximate) distance in miles between two **PostalCode** objects (which contains *lat* and *lng* fields) through a **ComputeDistance** controller object which takes two **PostalCode** objects and returns a **Result** object (which simply contains a **double value** field).
+
+The value stored in the **Result** object can then be displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
+
+> ![image](images/lab06/MobileGeo.png)
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->

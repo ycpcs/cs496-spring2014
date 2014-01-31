@@ -87,7 +87,7 @@ JSON
 
 JSON is [JavaScript Object Notation](http://en.wikipedia.org/wiki/Json).  It is a general-purpose format for describing semi-structured data, and is very useful for serializing and deserializing objects.
 
-An XML document is a consisting of elements. An element is specified by a *start tag* and an *end tag*. Between the element's start and end tag are any number of child elements, interspersed with any number of chunks of text.
+An XML document consists of elements specified by a *start tag* and an *end tag*. Between the element's start and end tag are any number of child elements, interspersed with any number of chunks of text.
 
 Example JSON document:
 
