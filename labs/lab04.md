@@ -24,7 +24,7 @@ Obtain ADT
 
 Obtain a flash drive from the instructor that contains the eclipse ADT bundle, the Android 2.3.3 (Gingerbread) SDK, and the tools needed for Android development (e.g. AVD Manager).
 
-> ![image](images/lab05/flashdrive.png)
+> ![image](images/lab04/flashdrive.png)
 
 In the **Android_ADT** directory there will be a batch file named **eclipse.bat** (which configures the SDK path to use the flash drive). Double click this file to launch Eclipse. Set your workspace to somewhere on your network drive, e.g. **H:\My Documents\CS496\Android**. 
 
@@ -35,7 +35,7 @@ To create an AVD, we will use the AVD Manager through Eclipse (the given example
 
 -   Select the Android Virtual Device Manager in the Eclipse toolbar
 
-> ![image](images/lab05/EclipseAVD.png)
+> ![image](images/lab04/EclipseAVD.png)
 
 -   Select a *New* AVD from the top button on the right side
 -   Configure an AVD using the following settings:
@@ -46,11 +46,11 @@ To create an AVD, we will use the AVD Manager through Eclipse (the given example
 	-   Check the **Snapshot** checkbox such that the current state of the emulator will be saved when the emulator is closed - **THIS WILL MAKE THE EMULATOR MUCH FASTER WHEN STARTING UP!**
 	-   Select *OK*
 
-> ![image](images/lab05/AVDcreate.png)
+> ![image](images/lab04/AVDcreate.png)
 
 Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster. Eventually you should see the following emulator window.
 
-> ![image](images/lab05/emulator.png)
+> ![image](images/lab04/emulator.png)
 
 You can create as many AVD's as you wish to test your application on a range of different API's and device resolutions.
 
@@ -65,7 +65,7 @@ To create a basic Android application simply choose **File -> New -> Android App
 -   Change the **Theme** to **None** (since they are not supported in versions below API 11)
 -   Click **Next >** to accept the defaults on all subsequent windows
 
-> ![image](images/lab05/newapp.png)
+> ![image](images/lab04/newapp.png)
 
 This should create a simple Android application. You will notice that Android applications use a similar directory structure as other Java applications. Some folders to note are:
 
@@ -79,18 +79,18 @@ This should create a simple Android application. You will notice that Android ap
 
 The other directories contain auto-generated files for the application. Additionally, the **AndroidManifest.xml** file contains a list of all components the application will use along with permissions for services, etc.
 
-> ![image](images/lab05/eclipsebasic.png)
+> ![image](images/lab04/eclipsebasic.png)
 
 At this point you should be able to run this application (select the green arrow in the Eclipse toolbar and choose **Android Application** in the **Run As** dialog) which will start the simulator (from the last snapshot), load the application onto the simulator, and launch the application.
 
-> ![image](images/lab05/helloworld.png)
+> ![image](images/lab04/helloworld.png)
 
 Hello CS496!
 ------------
 
 Select the **activity_main.xml** tab in Eclipse and the **activity_main.xml** tab at the bottom of the editor window which will show you the XML for the layout of the main app window. The text that is displayed in the app is stored in the **hello_world** resource element of the **string** asset. This is a good practice for any static text as it allows for localization of your applications.
 
-> ![image](images/lab05/activityxml.png)
+> ![image](images/lab04/activityxml.png)
 
 To change the value of this field
 
@@ -100,10 +100,10 @@ To change the value of this field
 -   Select the **hello_world** element
 -   Change the **value** field from "Hello World!" to "Hello CS496!\nAwesome!"
 
-> ![image](images/lab05/strings.png)
+> ![image](images/lab04/strings.png)
 
 Now if you run the application you should see the following:
 
-> ![image](images/lab05/hello496.png)
+> ![image](images/lab04/hello496.png)
 
 Congratulations! You've just written your first Android app (without a single line of code). Next we will learn how to use the Android framework to communicate with a web service and enhance the UI of the app.
