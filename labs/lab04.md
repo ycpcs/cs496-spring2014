@@ -1,109 +1,142 @@
 ---
 layout: default
-title: "Lab 4: Hello, Android!"
+title: "Lab 4: Using Web APIs"
 ---
+
+The lab activity is described in the Activity section below.
 
 Background
 ==========
 
-Android ADT bundle (ADT)
-------------------------
+Web APIs
+--------
 
-Since Android applications are written in Java, any standard Java IDE can be used or development. However, Google provides plug-ins for Eclipse as well as a preconfigured IDE [Android Developer Tools (ADT)](http://developer.android.com/sdk/index.html). There is also an early release development environment called [Android Studio](http://developer.android.com/sdk/installing/studio.html) based on the IntelliJ IDEA development environment. For this class, we will be using the Eclipse ADT bundle.
+Web APIs are the simplest form of web services. Although there is no standard for Web APIs, they ususally:
 
-Android Virtual Devices (AVD)
------------------------------
+-   send request data as query parameters (HTTP GET) or form parameters (HTTP POST)
+-   return response data in the body of an HTTP response, encoded as XML or JSON (although it could be encoded in any format)
 
-In order to test our Android applications (since we do not have actual Android devices) we will need to create an *Android Virtual Device* (AVD). This emulator will then be invoked and the corresponding *.apk* file downloaded to the emulator when we run our application. 
+You can think of a web service as being, essentially, a procedure. You provide it some input parameters, it does some computation, and then returns a result.
+
+### Making HTTP requests in Java
+
+Most flexible technique: use [Apache HttpComponents](http://hc.apache.org/). For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).
+
+Example: let's say that we have a web service available that determines whether or not an integer is a prime number. It is accessed using the URI **/isPrime** on the server. It takes a single parameter, called **num**, which specifies the integer to test. It returns a plain text response consisting of the text **true** or **false**. If the request was not specified properly, such as not specifying a **num** parameter, or specifying a **num** parameter that is not an integer, the service returns a response with the code 400 (Bad Request), and returns a plain text error message in the body of the message.
+
+Here is code to use this web service:
+
+	Scanner keyboard = new Scanner(System.in);
+	
+	// Get the host (server) the web service is running on
+	System.out.print("Host for web service: ");
+	String host = keyboard.nextLine();
+	
+	// Get integer to check
+	System.out.println("Integer to check: ");
+	int num = keyboard.nextInt();
+	
+	// Create an HttpClient
+	HttpClient client = new DefaultHttpClient();
+	
+	// Create a URI to access the web service, encoding the
+	// number as a query parameter
+	List<NameValuePair> params = new ArrayList<NameValuePair>();
+	params.add(new BasicNameValuePair("num", String.valueOf(num)));
+	URI uri = URIUtils.createURI("http", host, -1, "/isPrime", 
+		    URLEncodedUtils.format(params, "UTF-8"), null);
+
+	// Create an HttpGet object, which is the HTTP request
+	// we want to send
+	HttpGet request = new HttpGet(uri);
+
+	// Execute the request, getting back an HttpResponse object
+	// representing the server's response
+	HttpResponse response = client.execute(request);
+
+	// Copy the response body to a string
+	HttpEntity entity = response.getEntity();
+	InputStreamReader reader = new InputStreamReader(entity.getContent(), Charset.forName("UTF-8"));
+	StringWriter sw = new StringWriter();
+	IOUtils.copy(reader, sw);
+	String responseBody = sw.toString();
+	
+	// The response's status code will indicate whether or not
+	// the request succeeded
+	if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
+		System.out.println("Error: " + responseBody);
+	} else {
+		System.out.println(responseBody);
+	}
+
+### GET vs. POST
+
+An HTTP GET request encodes its parameters in a query string, which is part of the URI (Uniform Request Identifier) describing the information the client wants from the server.
+
+Query parameters are good for encoding small bits of information, but are not well-suited to larger chunks of information. An HTTP POST request encodes query parameters in the body of the HTTP request.
+
+It is fairly easy to make POST requests using HttpComponents: just use an an **HttpPost** object for the request, and set its entity (body) to be a **UrlEncodedFormEntity**:
+
+    HttpPost request = new HttpPost("http://" + host + "/isPrime");
+    request.setEntity(new UrlEncodedFormEntity(params));
+
+Note that the URI used to create the request no longer encodes the value of the **num** parameter.
+
+JSON
+----
+
+JSON is [JavaScript Object Notation](http://en.wikipedia.org/wiki/Json).  It is a general-purpose format for describing semi-structured data, and is very useful for serializing and deserializing objects.
+
+An XML document is a consisting of elements. An element is specified by a *start tag* and an *end tag*. Between the element's start and end tag are any number of child elements, interspersed with any number of chunks of text.
+
+Example JSON document:
+
+    TODO: put JSON result of geocoding here
+
+This document is the result of a geocoding query on an address (1600 Pennsylvania Ave, zip code 20500). Note that it specifies a latitude and longitude for the address. Geocoding is useful for applications that need to do operations based on geographic locations.
+
+Interpreting JSON in a program
+------------------------------
+
+Both clients and providers of web services will need a way of converting data to and from JSON format.
+
+As we saw in [Lab 2](lab02.html), the [Jackson](https://github.com/FasterXML/jackson) library and its **ObjectMapper** class makes it extremely simple to convert between Java objects (POJOs) and JSON.
+
+TODO: code examples
 
 Activity
 ========
 
-Obtain ADT
-----------
+Getting started: download [CS496\_Lab04.zip](CS496_Lab04.zip) and import it into Eclipse.
 
-Obtain a flash drive from the instructor that contains the eclipse ADT bundle, the Android 2.3.3 (Gingerbread) SDK, and the tools needed for Android development (e.g. AVD Manager).
+Your task is to write a Java program which, given any two US addresses specified as street address and zip code, will print the distance in miles between them.
 
-> ![image](images/lab04/flashdrive.png)
+Example run (user input in **bold**):
 
-In the **Android_ADT** directory there will be a batch file named **eclipse.bat** (which configures the SDK path to use the flash drive). Double click this file to launch Eclipse. Set your workspace to somewhere on your network drive, e.g. **H:\My Documents\CS496\Android**. 
+<pre>
+First street address: <b>725 Grantley Rd</b>
+First zip code      : <b>17403</b>
+Second street address: <b>1600 Pennsylvania Ave</b>
+Second zip code      : <b>20500</b>
+Distance is 74.80 miles
+</pre>
 
-Create AVD
-----------
+Use the free geocoding API described here:
 
-To create an AVD, we will use the AVD Manager through Eclipse (the given example values are the ones we will use in this class):
+> <http://www.geonames.org/export/free-geocoding.html>
 
--   Select the Android Virtual Device Manager in the Eclipse toolbar
+You will need to use the following parameters:
 
-> ![image](images/lab04/EclipseAVD.png)
+-   **postalcode** - the zip code
+-   **placeName** - the street address
+-   **country** - should be set to "US"
 
--   Select a *New* AVD from the top button on the right side
--   Configure an AVD using the following settings:
-	-   Give the AVD any name you wish, e.g. **CS496_AVD**
-	-   From the *Device* dropdown box, select the desired device/screen resolution, e.g. **4.0" WVGA (480 x 800: hdpi)**
-	-   From the *Target* dropdown box, select the desired API level the emulator should use, e.g. **Android 2.3.3 - API Level 10**
-	-   In the *SD Card* box, make a small sized virtual SD Card, e.g. **10** MiB
-	-   Check the **Snapshot** checkbox such that the current state of the emulator will be saved when the emulator is closed - **THIS WILL MAKE THE EMULATOR MUCH FASTER WHEN STARTING UP!**
-	-   Select *OK*
+The result is an JSON-encoded document in the format shown above in the JSON section.
 
-> ![image](images/lab04/AVDcreate.png)
+You can find the (approximate) distance in miles between two points (*lat1,lng1* and *lat2,lng2*) using the following formula:
 
-Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster.
-
-> ![image](images/lab04/emulator.png)
-
-You can create as many AVD's as you wish to test your application on a range of different API's and device resolutions.
-
-Hello World!
-------------
-
-To create a basic Android application simply choose **File -> New -> Android Application Project**. Set the following configuration values
-
--   Give the application the name **Hello CS496** (which will automatically set the project name)
--   Change the Package name to **edu.ycp.cs.cs496.helloCS496**. 
--   Set all the SDK dropdowns to **API10: Android 2.3.3 (Gingerbread)**
--   Change the **Theme** to **None** (since they are not supported in versions below API 11)
--   Click **Next>** to accept the defaults on all subsequent windows
-
-> ![image](images/lab04/newapp.png)
-
-This should create a simple Android application. You will notice that Android applications use a similar directory structure as other Java applications. Some folders to note are:
-
--   *src* - where component source files are located
--   *assets* - where any files used by the application can be placed, e.g. database files
--   *res* - resource file directories
-
-    > -   *drawable-*\* for various image files (e.g. program and button icons). The different *\*dpi* subdirectories allow for different icons to be used depending on the resolution of the device the application is being run on.
-    > -   *layout* - contains the XML layout files for each Activity used in the application, e.g. **main.xml** for a single Activity application
-    > -   *values* - contains XML files for any static values the application uses, e.g. **strings.xml** for static string constants.
-
-The other directories contain auto-generated files for the application. Additionally, the **AndroidManifest.xml** file contains a list of all components the application will use along with permissions for services, etc.
-
-> ![image](images/lab04/eclipsebasic.png)
-
-At this point you should be able to run this application (select the green arrow in the Eclipse toolbar and choose **Android Application** in the **Run As** dialog) which will start the simulator (from the last snapshot), load the application onto the simulator, and launch the application.
-
-> ![image](images/lab04/helloworld.png)
-
-Hello CS496!
-------------
-
-Select the **activity_main.xml** tab in Eclipse and the **activity_main.xml** tab at the bottom of the editor window which will show you the XML for the layout of the main app window. The text that is displayed in the app is stored in the **hello_world** resource element of the **string** asset. This is a good practice for any static text as it allows for localization of your applications.
-
-> ![image](images/lab04/activityxml.png)
-
-To change the value of this field
-
--   Expand the **res** folder
--   Expand the **values** subfolder
--   Select the **strings.xml** file
--   Select the **hello_world** element
--   Change the **value** field from "Hello World!" to "Hello CS496!\nAwesome!"
-
-> ![image](images/lab04/strings.png)
-
-Now if you run the application you should see the following:
-
-> ![image](images/lab04/hello496.png)
-
-Congratulations! You've just written your first Android app (without a single line of code). Next we will learn how to use the Android framework to communicate with a web service and enhance the UI of the app.
+    double dist = 3956 * 2 * Math.asin(
+            Math.sqrt(
+                Math.pow(Math.sin((lat1 - lat2)*Math.PI / 180 / 2), 2) +
+                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat1 * Math.PI / 180) *
+                Math.pow(Math.sin((lng1 - lng2) * Math.PI / 180 / 2), 2)));

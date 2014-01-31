@@ -10,4 +10,4 @@ Although the labs are not graded and you are not required to submit them, they a
 > Date | Lab | File(s)
 > ---- | --- | -------
 > Jan 28 | [Lab 2: Basic Web Service](lab02.html) | [CS496\_Jetty.zip](../assign/CS496_Jetty.zip), [CS496\_Lab02.zip](CS496_Lab02.zip)
-> Feb 4 | [Lab 3: Using Web APIs](lab03.html) | [CS496\_Lab03.zip](CS496_Lab03.zip)
+> Feb 4 | [Lab 4: Using Web APIs](lab04.html) | [CS496\_Lab04.zip](CS496_Lab04.zip)

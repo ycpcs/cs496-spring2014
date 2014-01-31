@@ -1,98 +1,109 @@
 ---
 layout: default
-title: "Lab 5: RESTful Android requests"
+title: "Lab 5: Hello, Android!"
 ---
-
-The lab activity is described in the Activity\_ section below.
 
 Background
 ==========
 
-Android UI Widgets
-------------------
-
-Most views in an Android application contain various UI widgets that allow user interaction with the program. The types of widgets and their layout can be described either through XML files (good for static layouts) or created dynamically at run time programatically (good for dynamic layouts). We will explore designing UI layouts later in the course. For this lab, the view layout is contained in the *res/layout/main.xml* file which will be loaded by the activity's **.onCreate()** method. An example file for a basic application that simply displays a single line of text is:
-
-    <?xml version="1.0" encoding="utf-8"?>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/helloLabel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/hello" />
-
-    </LinearLayout>
-
-Note that the *TextView* (which is basically a label) can be referred to in the application by its *id* (**helloLabel** in this example). The *id* allows us to access and/or modify a UI component. Thus, for example, we could programatically change the text for the label in the above Activity by
-
-    TextView label = (TextView) findViewById(R.id.helloLabel);
-    label.SetText("How are you?");
-
-Here the method **.findViewById()** accesses the resources of the application through the *R* object. Note the correspondance between the requested *id* and the one specified in the XML file.
-
-HTTP requests in Android
+Android ADT bundle (ADT)
 ------------------------
 
-Since Android applications are written in Java, we can utilize many of the same classes as we did on the PC when accessing web services. Thus we can issue requests and receive responses (possibly in JSON or XML) and process them in a similar fashion. In particular, we can use the same [Apache HttpComponents](http://hc.apache.org/). discussed in [lab03](lab03.html) (For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).) Hence an example web request to the geocoding service from [lab03](lab03.html) might be
+Since Android applications are written in Java, any standard Java IDE can be used or development. However, Google provides plug-ins for Eclipse as well as a preconfigured IDE [Android Developer Tools (ADT)](http://developer.android.com/sdk/index.html). There is also an early release development environment called [Android Studio](http://developer.android.com/sdk/installing/studio.html) based on the IntelliJ IDEA development environment. For this class, we will be using the Eclipse ADT bundle.
 
-    // Create HTTP client
-    HttpClient client = new DefaultHttpClient();
+Android Virtual Devices (AVD)
+-----------------------------
 
-    // Create list of request paramater/value pairs
-    List<NameValuePair> params = new ArrayList<NameValuePair>();
-    params.add(new BasicNameValuePair("postalcode", "17403");
-    params.add(new BasicNameValuePair("placeName", "725 Grantley Rd");
-    params.add(new BasicNameValuePair("country", "US"));
-    params.add(new BasicNameValuePair("username", "ycpcs_cs496"));
-
-    // Create URI
-    URI uri;
-    uri = URIUtils.createURI("http", "api.geonames.org", -1, "/postalCodeSearchJSON", 
-                URLEncodedUtils.format(params, "UTF-8"), null);
-
-    // Create HTTP request from uri
-    HttpGet request = new HttpGet(uri);
-
-    // Execute request and get response
-    HttpResponse response;
-    response = client.execute(request);
-
-    // Obtain the response body
-    HttpEntity entity = response.getEntity();
-
-At this point, the web service has provided a JSON or XML response that we need to extract from the response payload and parse accordingly. Since Android is Java based, we can use the same **ObjectMapper** objects from the [Jackson](https://github.com/FasterXML/jackson) libraries to create Java objects from the JSON response.
-
-Parsing JSON
-------------
-
-To convert the **HttpEntity** object to JSON, we will extract the contents of the response body, use **JSON.getObjectMapper()** to get an **ObjectMapper** method, then use **readValue** to read the JSON-encoded representation:
-
-    MyClass myObj = JSON.getObjectMapper().readValue(resp.getContents(), MyClass.class);
-    
-Note: If the JSON contains a list of objects, as long as our **POJO** contains a corresponding **List<>** field the **ObjectMapper** will take care of creating the list and assigning the appropriate values to the **List** items.
+In order to test our Android applications (since we do not have actual Android devices) we will need to create an *Android Virtual Device* (AVD). This emulator will then be invoked and the corresponding *.apk* file downloaded to the emulator when we run our application. 
 
 Activity
 ========
 
-Starting point code: [CS496\_Lab05.zip](CS496_Lab05.zip).
+Obtain ADT
+----------
 
-Your task is to duplicate the functionality from [lab03](lab03.html) in an Android application. However now instead of obtaining the street addresses and zip codes from the terminal, in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets from the Activity's UI (refer to *res/layout/activity_main.xml* for the corresponding *id*'s of the widgets). Once the HTTP requests are generated and the JSON responses are parsed using an **ObjectMapper**, the result can be computed and displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
+Obtain a flash drive from the instructor that contains the eclipse ADT bundle, the Android 2.3.3 (Gingerbread) SDK, and the tools needed for Android development (e.g. AVD Manager).
 
-> ![image](images/lab05/MobileClient.png)
+> ![image](images/lab05/flashdrive.png)
 
-As a reminder of the geocoding API:
+In the **Android_ADT** directory there will be a batch file named **eclipse.bat** (which configures the SDK path to use the flash drive). Double click this file to launch Eclipse. Set your workspace to somewhere on your network drive, e.g. **H:\My Documents\CS496\Android**. 
 
-> <http://www.geonames.org/export/free-geocoding.html>
+Create AVD
+----------
 
-You will need to use the following parameters:
+To create an AVD, we will use the AVD Manager through Eclipse (the given example values are the ones we will use in this class):
 
--   **postalcode** - the zip code
--   **placeName** - the street address
--   **country** - should be set to "US"
--   **username** - should be set to **ycpcs_cs496**
+-   Select the Android Virtual Device Manager in the Eclipse toolbar
 
-You can find the (approximate) distance in miles between two **PostalCode** objects (which contains *lat* and *lng* fields) through a **ComputeDistance** controller object which takes two **PostalCode** objects and returns a **Result** object (which simply contains a **double value** field).
+> ![image](images/lab05/EclipseAVD.png)
+
+-   Select a *New* AVD from the top button on the right side
+-   Configure an AVD using the following settings:
+	-   Give the AVD any name you wish, e.g. **CS496_AVD**
+	-   From the *Device* dropdown box, select the desired device/screen resolution, e.g. **4.0" WVGA (480 x 800: hdpi)**
+	-   From the *Target* dropdown box, select the desired API level the emulator should use, e.g. **Android 2.3.3 - API Level 10**
+	-   In the *SD Card* box, make a small sized virtual SD Card, e.g. **10** MiB
+	-   Check the **Snapshot** checkbox such that the current state of the emulator will be saved when the emulator is closed - **THIS WILL MAKE THE EMULATOR MUCH FASTER WHEN STARTING UP!**
+	-   Select *OK*
+
+> ![image](images/lab05/AVDcreate.png)
+
+Select the newly created AVD and click the **Start** button and leave the default values on the pop-up screen to launch the AVD (which will take some time for the initial boot as it builds the snapshot). Subsequent launches will be much faster.
+
+> ![image](images/lab05/emulator.png)
+
+You can create as many AVD's as you wish to test your application on a range of different API's and device resolutions.
+
+Hello World!
+------------
+
+To create a basic Android application simply choose **File -> New -> Android Application Project**. Set the following configuration values
+
+-   Give the application the name **Hello CS496** (which will automatically set the project name)
+-   Change the Package name to **edu.ycp.cs.cs496.helloCS496**. 
+-   Set all the SDK dropdowns to **API10: Android 2.3.3 (Gingerbread)**
+-   Change the **Theme** to **None** (since they are not supported in versions below API 11)
+-   Click **Next>** to accept the defaults on all subsequent windows
+
+> ![image](images/lab05/newapp.png)
+
+This should create a simple Android application. You will notice that Android applications use a similar directory structure as other Java applications. Some folders to note are:
+
+-   *src* - where component source files are located
+-   *assets* - where any files used by the application can be placed, e.g. database files
+-   *res* - resource file directories
+
+    > -   *drawable-*\* for various image files (e.g. program and button icons). The different *\*dpi* subdirectories allow for different icons to be used depending on the resolution of the device the application is being run on.
+    > -   *layout* - contains the XML layout files for each Activity used in the application, e.g. **main.xml** for a single Activity application
+    > -   *values* - contains XML files for any static values the application uses, e.g. **strings.xml** for static string constants.
+
+The other directories contain auto-generated files for the application. Additionally, the **AndroidManifest.xml** file contains a list of all components the application will use along with permissions for services, etc.
+
+> ![image](images/lab05/eclipsebasic.png)
+
+At this point you should be able to run this application (select the green arrow in the Eclipse toolbar and choose **Android Application** in the **Run As** dialog) which will start the simulator (from the last snapshot), load the application onto the simulator, and launch the application.
+
+> ![image](images/lab05/helloworld.png)
+
+Hello CS496!
+------------
+
+Select the **activity_main.xml** tab in Eclipse and the **activity_main.xml** tab at the bottom of the editor window which will show you the XML for the layout of the main app window. The text that is displayed in the app is stored in the **hello_world** resource element of the **string** asset. This is a good practice for any static text as it allows for localization of your applications.
+
+> ![image](images/lab05/activityxml.png)
+
+To change the value of this field
+
+-   Expand the **res** folder
+-   Expand the **values** subfolder
+-   Select the **strings.xml** file
+-   Select the **hello_world** element
+-   Change the **value** field from "Hello World!" to "Hello CS496!\nAwesome!"
+
+> ![image](images/lab05/strings.png)
+
+Now if you run the application you should see the following:
+
+> ![image](images/lab05/hello496.png)
+
+Congratulations! You've just written your first Android app (without a single line of code). Next we will learn how to use the Android framework to communicate with a web service and enhance the UI of the app.
