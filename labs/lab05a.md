@@ -107,7 +107,9 @@ TODO: code examples
 Activity
 ========
 
-Getting started: download [CS496\_Lab04.zip](CS496_Lab04.zip) and import it into Eclipse.
+Getting started:
+
+Download [CS496\_Lab05\_Geocoding.zip](CS496_Geocoding.zip) and [CS496\_Lab05a.zip](CS496_Lab05a.zip) and import them into Eclipse.
 
 Your task is to write a Java program which, given any two US addresses specified as street address and zip code, will print the distance in miles between them.
 
