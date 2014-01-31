@@ -10,5 +10,5 @@ Although the labs are not graded and you are not required to submit them, they a
 > Date | Lab | File(s)
 > ---- | --- | -------
 > Jan 28 | [Lab 2: Basic Web Service](lab02.html) | [CS496\_Jetty.zip](../assign/CS496_Jetty.zip), [CS496\_Lab02.zip](CS496_Lab02.zip)
-> Feb 4 | Lab 4: Hello, Android
+> Feb 4 | Lab 4: Hello, Android | CS496\_Lab04.zip
 > Feb 6 | [Lab 5a: Using Web APIs](lab05a.html) <br /> Lab 5b: RESTful Mobile Client | [CS496\_Lab05\_Geocoding.zip](CS496_Lab05_Geocoding) <br /> [CS496\_Lab05a.zip](CS496_Lab05a.zip) <br /> CS496\_Lab05b.zip
