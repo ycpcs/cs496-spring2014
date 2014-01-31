@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lab 4: Using Web APIs"
+title: "Lab 5a: Using Web APIs"
 ---
 
 The lab activity is described in the Activity section below.
