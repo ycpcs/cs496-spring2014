@@ -37,7 +37,7 @@ Here the method **.findViewById()** accesses the resources of the application th
 HTTP requests in Android
 ------------------------
 
-Since Android applications are written in Java, we can utilize many of the same classes as we did on the PC when accessing web services. Thus we can issue requests and receive responses (possibly in XML) and process them in a similar fashion. In particular, we can use the same [Apache HttpComponents](http://hc.apache.org/). discussed in [lab01](lab01.html) (For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).) Hence an example web request to the geocoding service from [lab01](lab01.html) might be
+Since Android applications are written in Java, we can utilize many of the same classes as we did on the PC when accessing web services. Thus we can issue requests and receive responses (possibly in JSON or XML) and process them in a similar fashion. In particular, we can use the same [Apache HttpComponents](http://hc.apache.org/). discussed in [lab03](lab03.html) (For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).) Hence an example web request to the geocoding service from [lab03](lab03.html) might be
 
     // Create HTTP client
     HttpClient client = new DefaultHttpClient();
@@ -47,10 +47,11 @@ Since Android applications are written in Java, we can utilize many of the same 
     params.add(new BasicNameValuePair("postalcode", "17403");
     params.add(new BasicNameValuePair("placeName", "725 Grantley Rd");
     params.add(new BasicNameValuePair("country", "US"));
+    params.add(new BasicNameValuePair("username", "ycpcs_cs496"));
 
     // Create URI
     URI uri;
-    uri = URIUtils.createURI("http", "ws.geonames.org", -1, "/postalCodeSearch", 
+    uri = URIUtils.createURI("http", "api.geonames.org", -1, "/postalCodeSearchJSON", 
                 URLEncodedUtils.format(params, "UTF-8"), null);
 
     // Create HTTP request from uri
@@ -60,32 +61,28 @@ Since Android applications are written in Java, we can utilize many of the same 
     HttpResponse response;
     response = client.execute(request);
 
-    // Copy the response body to a string
+    // Obtain the response body
     HttpEntity entity = response.getEntity();
 
-At this point, the web service has provided an XML response that we need to extract from the response payload and parse accordingly. However, Android does not have native support for **dom4j** but does have an alternative XML parsing library **XPath**.
+At this point, the web service has provided a JSON or XML response that we need to extract from the response payload and parse accordingly. Since Android is Java based, we can use the same **ObjectMapper** objects from the [Jackson](https://github.com/FasterXML/jackson) libraries to create Java objects from the JSON response.
 
-Parsing XML via XPath
----------------------
+Parsing JSON
+------------
 
-To parse an XML message in Android, we will use an alternative library that directly accesses the XML tree through XPath expressions. Thus we simply need to create an appropriate document (through a factory) from the payload and obtain the desired data via an XPath to the corresponding field, e.g.
+To convert the **HttpEntity** object to JSON, we will extract the contents of the response body, use **JSON.getObjectMapper()** to get an **ObjectMapper** method, then use **readValue** to read the JSON-encoded representation:
 
-    XPath xpath = XPathFactory.newInstance().newXPath();
-    DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-    builderFactory.setNamespaceAware(true);
-    DocumentBuilder builder = builderFactory.newDocumentBuilder();
-    Document doc = builder.parse(entity.getContent());
-    Node latNode = (Node) xpath.evaluate("//geonames/code/lat",doc,XPathConstants.NODE);
-    Double lat1 = Double.parseDouble(latNode.getTextContent());
+    MyClass myObj = JSON.getObjectMapper().readValue(resp.getContents(), MyClass.class);
+    
+Note: If the JSON contains a list of objects, as long as our **POJO** contains a corresponding **List<>** field the **ObjectMapper** will take care of creating the list and assigning the appropriate values to the **List** items.
 
 Activity
 ========
 
 Starting point code: [CS496\_Lab05.zip](CS496_Lab05.zip).
 
-Your task is to duplicate the functionality from [lab01](lab01.html) in an Android application. However now instead of obtaining the street addresses and zip codes from the terminal, in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets from the Activity's UI (refer to *res/layout/main.xml* for the corresponding *id*'s of the widgets). Once the HTTP requests are generated and the XML responses are parsed using an XPath object, the result can be computed and displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
+Your task is to duplicate the functionality from [lab03](lab03.html) in an Android application. However now instead of obtaining the street addresses and zip codes from the terminal, in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets from the Activity's UI (refer to *res/layout/activity_main.xml* for the corresponding *id*'s of the widgets). Once the HTTP requests are generated and the JSON responses are parsed using an **ObjectMapper**, the result can be computed and displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
 
-> ![image](images/lab03/FirstWebService.png)
+> ![image](images/lab05/MobileClient.png)
 
 As a reminder of the geocoding API:
 
@@ -96,13 +93,6 @@ You will need to use the following parameters:
 -   **postalcode** - the zip code
 -   **placeName** - the street address
 -   **country** - should be set to "US"
+-   **username** - should be set to **ycpcs_cs496**
 
-The result is an XML-encoded document in the format shown above in the XML section.
-
-You can find the (approximate) distance in miles between two points (*lat1,lng1* and *lat2,lng2*) using the following formula:
-
-    double dist = 3956 * 2 * Math.asin(
-            Math.sqrt(
-                Math.pow(Math.sin((lat1 - lat2)*Math.PI / 180 / 2), 2) +
-                Math.cos(lat1 * Math.PI / 180) * Math.cos(lat1 * Math.PI / 180) *
-                Math.pow(Math.sin((lng1 - lng2) * Math.PI / 180 / 2), 2)));
+You can find the (approximate) distance in miles between two **PostalCode** objects (which contains *lat* and *lng* fields) through a **ComputeDistance** controller object which takes two **PostalCode** objects and returns a **Result** object (which simply contains a **double value** field).
