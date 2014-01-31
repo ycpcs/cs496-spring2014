@@ -97,15 +97,17 @@ Since this application will require access to the Internet, we must tell Android
 
 Hence the XML should look like
 
-    ...
-    <uses-sdk
-        android:minSdkVersion="10"
-        android:targetSdkVersion="10" />
+{% highlight xml %}
+...
+<uses-sdk
+	android:minSdkVersion="10"
+	android:targetSdkVersion="10" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <application
-        android:allowBackup="true"
-    ...
+<uses-permission android:name="android.permission.INTERNET" />
+<application
+	android:allowBackup="true"
+...
+{% endhighlight %}
 
 Model and Controller classes
 ----------------------------

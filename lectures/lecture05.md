@@ -1,138 +1,74 @@
 ---
 layout: default
-title: "Lecture 5: RESTful mobile requests"
+title: "Lecture 5: Basic mobile framework"
 ---
 
-RESTful Requests
-================
+Android
+=======
 
-As a review, the four types of HTTP methods called by REST requests are
+Android is a mobile operating system based on a Linux kernel (along with several standard applications) designed by Google that utilizes an optimized JVM to run Java programs. It has built-in support for
 
--   **GET** - retrieve a resource
--   **PUT** - replace a resource
--   **POST** - create a new resource
--   **DELETE** - delete a resource
+-   mobile browsers
+-   2D and 3D graphics (via OpenGL ES)
+-   SQLite databases
+-   many common audio/video media formats
+-   telephone capabilities
+-   a variety of networking options (Bluetooth, WiFi, etc.)
+-   access to common mobile device peripherals (e.g. camera, GPS, accelerometers, etc.)
 
-Mobile REST Objects
-===================
+The [Android](http://developer.android.com/index.html) developers site provides extensive documentation regarding the SDK as well as command references, tutorials, Android conference videos, and forums to discuss Android related issues.
 
-Android supports a variety of [Apache HttpComponents](http://hc.apache.org/) that allow for the creation of different REST requests. The basic structure for all the requests it to create an **HTTPClient** object, an appropriate **URI**
+Applications
+============
 
-    // Create HTTP client
-    HttpClient client = new DefaultHttpClient();
+Android applications are written in Java and are compiled into a special package (with a *.apk*) extension which is loaded onto the device. Each application is *sandboxed* such that it runs in its own process and only has access to resources included in the *.apk* file or made available by the system (such as contacts).
 
-    // Create URI
-    URI uri;
-    uri = URIUtils.createURI("http", host , -1, service, 
-                URLEncodedUtils.format(params, "UTF-8"), null);
+Android applications utilize four types of components depending on the desired functionality and lifetime of the component:
 
-Once the client and **URI** are created, an appropriate REST object can be instantiated along with an **HTTPEntity** payload if necessary.
+-   **Activity** - an activity encompases a single view with a user interface. Typically each different view will correspond to separate activities which the application will seamlessly switch between throughout the use of the application. They should be relatively lightweight to maintain responsiveness of the UI and thus are used to display information to the user and/or collect UI events to pass to other components.
+-   **Service** - a service is a more heavyweight component responsible for performing more substantial computations. Typically they do not have a UI (but are utilized by *Activities*) and thus run in a background thread. Services may continue to run even when the application does not currently have focus to perform tasks such as updating data over the network.
+-   **Content Provider** - content providers manage shared data between applications. The content provider can allow read/write priviledges to whatever way the persistent data is maintained, e.g. SQLite database, native files, web servers, etc. They provide a unified interface for an application to obtain data independent of the underlying storage mechanism. Typically they also do not have a UI.
+-   **Broadcast Receiver** - broadcast receivers are components that are used to listen (and/or respond to via a service) system-wide broadcast announcements (e.g. low battery). Applications can also generate announcements (known as an *Intent*) that other programs may respond to, e.g. a picture has been taken. Again they do not usually have a UI although they may indicate an alert via the status bar.
 
-HTTPGet
--------
+Applications can expose any of their components for other applications to utilize, e.g. the camera app on the phone allows other applications to start its activity to capture pictures. To activate another application's components (since each application is sandboxed), your application generates a message known as an *Intent* which specifies the type of component you wish to use and the desired action to perform. Then *any* application that is designed to handle the *Intent* is able to process the request and possibly respond to the original application via another *Intent* object.
 
-The [**HTTPGet** class](http://developer.android.com/reference/org/apache/http/client/methods/HttpGet.html) produces **GET** requests with optional payload
+In order to tell the Android system which components an application will use, an *XML* file known as the *manifest* (in the *AndroidManifest.xml*) is created. It specifies:
 
-    // Create HTTP GET request from URI
-    HttpGet request = new HttpGet(uri);
+-   the names of the components in the application
+-   any permissions the application needs (e.g. Internet)
+-   the minimum API level necessary for the application to run
+-   any hardware devices required by the application
+-   any additional libraries the application needs (e.g. Google Maps)
 
-    // TODO: Create reqEntity payload object for request as needed  
+For example, a basic application manifest might be
 
-    // Set payload in request
-    // request.setEntity(reqEntity);
+    <?xml version="1.0" encoding="utf-8"?>
+    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+        package="edu.ycp.cs.helloandroid"
+        android:versionCode="1"
+        android:versionName="1.0" >
 
-    // Execute request and get response
-    HttpResponse response;
-    response = client.execute(request);
+        <uses-sdk android:minSdkVersion="10" />
 
-    // Get payload from response
-    HttpEntity respEntity = response.getEntity();
+        <application
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name" >
+            <activity
+                android:name=".HelloAndroid"
+                android:label="@string/app_name" >
+                <intent-filter>
+                    <action android:name="android.intent.action.MAIN" />
 
-    // TODO: Process response payload as appropriate
+                    <category android:name="android.intent.category.LAUNCHER" />
+                </intent-filter>
+            </activity>
+        </application>
 
-HTTPPut
--------
+    </manifest>
 
-The [**HTTPPut** class](http://developer.android.com/reference/org/apache/http/client/methods/HttpPut.html) produces **PUT** requests with optional payload
+Lifecycle
+=========
 
-    // Create HTTP PUT request from URI
-    HttpPut request = new HttpPut(uri);
+An important consideration in mobile applications is the *lifecycle* of the application. Since often times an application will be unloaded at any time by the user, e.g. to take a phone call, or by the system, e.g. due to low memory, it is important to consider how to suspend, destroy, and restore the current state of applications. The simplest way is to simply let the application get destroyed in which case the application will start fresh each time. However this approach can be annoying to users when whatever information they may have entered or were viewing are lost each time they select the application.
 
-    // TODO: Create reqEntity payload object for request as needed  
-
-    // Set payload in request
-    // request.setEntity(reqEntity);
-
-    // Execute request and get response
-    HttpResponse response;
-    response = client.execute(request);
-
-    // Get payload from response
-    HttpEntity respEntity = response.getEntity();
-
-    // TODO: Process response payload as appropriate
-
-HTTPPost
---------
-
-The [**HTTPPost** class](http://developer.android.com/reference/org/apache/http/client/methods/HttpPost.html) produces **POST** requests with optional payload
-
-    // Create HTTP POST request from URI
-    HttpPost request = new HttpPost(uri);
-
-    // TODO: Create reqEntity payload object for request as needed  
-
-    // Set payload in request
-    // request.setEntity(reqEntity);
-
-    // Execute request and get response
-    HttpResponse response;
-    response = client.execute(request);
-
-    // Get payload from response
-    HttpEntity respEntity = response.getEntity();
-
-    // TODO: Process response payload as appropriate
-
-HTTPDelete
-----------
-
-The [**HTTPDelete** class](http://developer.android.com/reference/org/apache/http/client/methods/HttpDelete.html) produces **DELETE** requests (note no payload can be sent with a **DELETE** request)
-
-    // Create HTTP DELETE request from URI
-    HttpDelete request = new HttpDelete(uri);
-
-    // Execute request and get response
-    HttpResponse response;
-    response = client.execute(request);
-
-    // Get payload from response
-    HttpEntity respEntity = response.getEntity();
-
-    // TODO: Process response payload as appropriate
-
-HttpEntity
-----------
-
-The [**HTTPEntity** class](http://developer.android.com/reference/org/apache/http/HttpEntity.html) is used with the **GET**, **PUT**, and **POST** classes to send additional information in the *requests* and *responses*. In particular, the **getContent()** method can be used on an entity object to retrieve the data which can then be converted as needed. For example, if the contents is a input stream,
-
-	// Get payload from response
-	HttpEntity respEntity = response.getEntity();
-	
-	// Process response payload if non-empty
-	if (respEntity != null) {
-	   // Get stream from entity
-	   InputStream s = respEntity.getContent();
-	   
-	   // Parse stream
-	   BufferedReader r = new BufferedReader(new InputStreamReader(s));
-	   StringBuider str = new StringBuilder();
-	   String line = null;
-	   while ((line = reader.readLine()) != null) {
-	      str.append(line + "\n");
-	   }
-	   s.close();
-	   String text = str.toString();
-	}
-	   
-Often the **HTTPEntity** object may contain **XML** that we can subsequently parse which we will see later in the course.
+A better way is to use methods provided by the component classes to save the current state in some type of persistent manner that can be reloaded when the application is subsequently used. There are a variety of ways Android applications can store persistent data, e.g. SQLite databases, native files, etc., and which one to use is dependent on the information that needs to be stored by the application. Later in the course we will discuss how to handle the volitility of the application state when we investigate creating good UI's.
