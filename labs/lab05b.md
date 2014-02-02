@@ -110,9 +110,9 @@ Hence the XML should look like
 Model and Controller classes
 ----------------------------
 
-Since the underlying object and controller classes are identical to the terminal web client from [Lab 5a](lab05a.html), we simply need to link the model and controller class packages via the build path. 
+Since the underlying object and controller classes are identical to the terminal web client from [Lab 5a](lab05a.html), we simply need to link the model and controller class project **CS496_Lab5_Geocoding** via the build path. Right-click the **CS496_Lab05b** project, select **Build Path -> Configure Build Path**, select the **Projects** tab and add the **CS496_Lab5_Geocoding** project.
 
-Note how separating the model and controller classes from the UI allows for them to be easily shared between projects
+Note how separating the model and controller classes from the UI allows for them to be easily shared between projects.
 
 Data input from widgets
 -----------------------
