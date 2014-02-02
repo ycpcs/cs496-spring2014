@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lab 5: Hello, Android!"
+title: "Lab 4: Hello, Android!"
 ---
 
 Background
