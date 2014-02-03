@@ -87,13 +87,38 @@ JSON
 
 JSON is [JavaScript Object Notation](http://en.wikipedia.org/wiki/Json).  It is a general-purpose format for describing semi-structured data, and is very useful for serializing and deserializing objects.
 
-An XML document consists of elements specified by a *start tag* and an *end tag*. Between the element's start and end tag are any number of child elements, interspersed with any number of chunks of text.
+A JSON document typically will contain a single JSON *value*.  A JSON value can be
+
+* a string
+* a number
+* an *object*, which is a map of names (strings) to values
+* an *array*, which is a sequence of zero or more values
+
+Objects are specified as a comma-separated list of of field names to values within a pair of curly braces (<code>{}</code>).
+
+Arrays are specified as a comma-separated list of values within a pair of square brackets (<code>[]</code>).
+
+You will note that the definition of a JSON value is recursive because objects and arrays can contain nested values.
 
 Example JSON document:
 
-    TODO: put JSON result of geocoding here
+    {
+      "postalCodes": [
+        {
+          "adminName2": "York",
+          "adminCode2": "133",
+          "adminCode1": "PA",
+          "postalCode": "17403",
+          "countryCode": "US",
+          "lng": -76.712998,
+          "placeName": "York",
+          "lat": 39.94943,
+          "adminName1": "Pennsylvania"
+        }
+      ]
+    }
 
-This document is the result of a geocoding query on an address (1600 Pennsylvania Ave, zip code 20500). Note that it specifies a latitude and longitude for the address. Geocoding is useful for applications that need to do operations based on geographic locations.
+This document is the result of a geocoding query on an address (725 Grantley Rd, zip code 17403). Note that it specifies a latitude and longitude for the address. Geocoding is useful for applications that need to do operations based on geographic locations.
 
 Interpreting JSON in a program
 ------------------------------
@@ -102,14 +127,18 @@ Both clients and providers of web services will need a way of converting data to
 
 As we saw in [Lab 2](lab02.html), the [Jackson](https://github.com/FasterXML/jackson) library and its **ObjectMapper** class makes it extremely simple to convert between Java objects (POJOs) and JSON.
 
-TODO: code examples
+In the **CS496\_Lab05\_Geocoding** package is a class called **PostalCode**, which represents a single geocoding result, and **PostalCodes**, which represents a collection of geocoding results.  The latter (**PostalCodes**) is the type of result returned by the geocoding service.  Let's say that **entity** is an **HttpEntity** whose body contains a geocoding result in JSON format.  The following code will convert it to a **PostalCodes** object:
+
+    PostalCodes p = JSON.getObjectMapper().readValue(entity.getContent(), PostalCodes.class);
+
+As we have seen previously, the Jackson library automatically handles the conversion from JSON to a Java object (POJO).
 
 Activity
 ========
 
 Getting started:
 
-Download [CS496\_Lab05\_Geocoding.zip](CS496_Geocoding.zip) and [CS496\_Lab05a.zip](CS496_Lab05a.zip) and import them into Eclipse.
+Download [CS496\_Lab05\_Geocoding.zip](CS496_Lab05_Geocoding.zip) and [CS496\_Lab05a.zip](CS496_Lab05a.zip) and import them into Eclipse.
 
 Your task is to write a Java program which, given any two US addresses specified as street address and zip code, will print the distance in miles between them.
 
@@ -142,3 +171,7 @@ You can find the (approximate) distance in miles between two points (*lat1,lng1*
                 Math.pow(Math.sin((lat1 - lat2)*Math.PI / 180 / 2), 2) +
                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat1 * Math.PI / 180) *
                 Math.pow(Math.sin((lng1 - lng2) * Math.PI / 180 / 2), 2)));
+
+<!-- vim:set wrap: ­-->
+<!-- vim:set linebreak: -->
+<!-- vim:set nolist: -->
