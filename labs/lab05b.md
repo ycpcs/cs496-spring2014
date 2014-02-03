@@ -80,7 +80,7 @@ Activity
 
 Your task is to duplicate the functionality from [Lab 5a](lab05a.html) in an Android application.
 
-Starting point code: [CS496\_Lab05b.zip](CS496_Lab05b.zip). You should add code to **MainActivity.java**.
+Starting point code: [CS496\_Lab05b.zip](CS496_Lab05b.zip). You should add code to **MainActivity.java** and .
 
 As a reminder of the geocoding API:
 
@@ -110,41 +110,45 @@ Hence the XML should look like
 Model and Controller classes
 ----------------------------
 
-Since the underlying object and controller classes are identical to the terminal web client from [Lab 5a](lab05a.html), we simply need to link the model and controller class project [CS496_Lab05_Geocoding.zip](CS496_Lab05_Geocoding.zip) via the build path. Right-click the **CS496_Lab05b** project, select **Build Path -> Configure Build Path**, select the **Projects** tab and add the **CS496_Lab5_Geocoding** project.
+Since the underlying object and controller classes are identical to the terminal web client from [Lab 5a](lab05a.html), we can reuse the model and controller classes from the [CS496_Lab05_Geocoding.zip](CS496_Lab05_Geocoding.zip) project. Unfortunately, since the Android application is bundled up before being transferred to the device, we must export the project as a **JAR** file and include it in the **libs** directory of the mobile app project. 
 
-Note how separating the model and controller classes from the UI allows for them to be easily shared between projects.
+-    Right-click the **CS496_Lab05b_Geocoding/src** directory, select **Export -> Java -> JAR File**, navigate to the **libs** directory of the mobile app project in the workspace and give it a meaningful name (e.g. **CS496_Lab05_Geocoding.jar**).
+-    Right-click the **CS496_Lab05b** project and select **Build Path -> Configure Build Path**, select the **Libraries** tab, select **Add JAR**, navigate to the **libs** directory of the mobile project, and add the **JAR** file you created in the previous step.
+
+Note how separating the model and controller classes from the UI allows for them to be shared between projects.
+
+In this project, we will also have a local controller class to handle the **GET** requests thus further separating the UI from the underlying behavior.
 
 Data input from widgets
 -----------------------
 
-Instead of obtaining the street addresses and zip codes from the terminal (via a keyboard scanner), in the **CallWebService()** method the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets specified in the Activity's UI (refer to **res/layout/activity_main.xml** for the corresponding **id**'s of the widgets). For example, to get an object corresponding to the text box for the first street address
+Instead of obtaining the street addresses and zip codes from the terminal (via a keyboard scanner), in the **ProcessRequest()** method within the **MainActivity** class (i.e. UI view) the information should be retreived from the [EditText](http://developer.android.com/reference/android/widget/EditText.html) widgets specified in the Activity's UI (refer to **res/layout/activity_main.xml** for the corresponding **id**'s of the widgets). For example, to get an object corresponding to the text box for the first street address
 
     EditText firstStreet = (EditText) findViewById(R.id.firstStreet);
 
-Then the **getText()** method can be called on the **EditText** object to retrieve the text currently in the text box (as an [Editable](http://developer.android.com/reference/android/text/Editable.html) object which can be converted to a string via the **toString()** method).
+-    Then the **getText()** method can be called on the **EditText** object to retrieve the text currently in the text box (as an [Editable](http://developer.android.com/reference/android/text/Editable.html) object which can be converted to a string via the **toString()** method). **Optional:** At this point you could do some client-side validation of the inputs (e.g. a zip code that is not exactly 5 numerical digits) and indicate errors appropriately within the view.
+-    Instantiate a **MobileController** object to process the inputs by calling the **getGeoDistance()** method. This method takes four **String** parameters for the street and zipcodes and returns a **Result** object containing the computed distance (or **null** if either request failed).
+-    If the controller returns a valid result, you should display the distance in the **distanceLabel** widget or indicate an error. Note: the text of the label can be set using the **setText()** method of the label (you may want to format it appropriately).
 
 Creating HTTP request
 ---------------------
 
-The HTTP request can be created in a similar fashion to [Lab 5a](lab05a.html) by creating a **List** of **NameValuePair** objects corresponding to the necessary parameters and values needed for the request. 
+The HTTP requests will be handled in the **MobileController** class since it should not depend on the UI. This class contains two methods - **getGeoDistance()** and **makeGeoGetRequest()**.
 
-You will need to have key/value pairs for the following parameters:
+-    **getGeoDistance()** should simply make two calls to **makeGeoGetRequest()** to obtain **PostalCodes** objects for each of the addresses provided via the parameters. If both addresses return valid (i.e. non-**null**) **PostalCodes** objects, then a **ComputeDistance** controller can be created to compute the distance using the **findDistance()** method
+-    **MakeGeoGetRequest()** can be created in a similar fashion to [Lab 5a](lab05a.html) by creating a **List** of **NameValuePair** objects corresponding to the necessary parameters and values needed for the request. You will need to have key/value pairs for the following parameters:
 
--   **postalcode** - the zip code
--   **placeName** - the street address
--   **country** - should be set to "US"
--   **username** - should be set to **ycpcs_cs496**
+	-   **postalcode** - the zip code
+	-   **placeName** - the street address
+	-   **country** - should be set to "US"
+	-   **username** - should be set to **ycpcs_cs496**
 
-Once the parameter list is created, you can define a **URI** object and use it to construct an **HttpGet** request which is executed through the **HttpClient** object's **execute()** method. The return value should be stored in an **HttpResponse** object.
+Once the parameter list is created, a **URI** object can be created and used to construct an **HttpGet** request which is executed through the **HttpClient** object's **execute()** method. The return value should be stored in an **HttpResponse** object.
 
 Parsing the returned JSON data
 ------------------------------
 
-The HTTP JSON response can be parsed using an **ObjectMapper** using the **PostalCodes** model class (which simply contains a **List** of **PostalCode** objects that represent the data for each location).
-
-You can find the (approximate) distance in miles between two **PostalCode** objects (which contains *lat* and *lng* fields) through a **ComputeDistance** controller object which takes two **PostalCode** objects and returns a **Result** object (which simply contains a **double value** field).
-
-The value stored in the **Result** object can then be displayed in the **distanceLabel** widget using the **.setText()** method. Thus a sample run in the AVD is
+**Once the status code of the response is checked for success**, the HTTP JSON response can be easily parsed using an **ObjectMapper** using the **PostalCodes** model class (which simply contains a **List** of **PostalCode** objects that represent the data for each location).
 
 > ![image](images/lab05b/MobileGeo.png)
 
