@@ -3,89 +3,42 @@ layout: default
 title: "Lab 5a: Using Web APIs"
 ---
 
-The lab activity is described in the Activity section below.
+# Getting started
 
-Background
-==========
+Getting started:
 
-Web APIs
---------
+Download [CS496\_Lab05\_Geocoding.zip](CS496_Lab05_Geocoding.zip) and [CS496\_Lab05a.zip](CS496_Lab05a.zip) and import them into Eclipse.
 
-Web APIs are the simplest form of web services. Although there is no standard for Web APIs, they ususally:
+Your task is to write a Java program which, given any two US addresses specified as street address and zip code, will print the distance in miles between them.  To do this, you will write Java code to make HTTP requests to a geocoding web service.
 
--   send request data as query parameters (HTTP GET) or form parameters (HTTP POST)
--   return response data in the body of an HTTP response, encoded as XML or JSON (although it could be encoded in any format)
+## Making HTTP requests in Java
 
-You can think of a web service as being, essentially, a procedure. You provide it some input parameters, it does some computation, and then returns a result.
+See [Lecture 5](../lectures/lecture05.html) for details about using [Apache HttpComponents](http://hc.apache.org/) to make HTTP requests.
 
-### Making HTTP requests in Java
+### Query Parameters, GET vs. POST
 
-Most flexible technique: use [Apache HttpComponents](http://hc.apache.org/). For complete details, [read the tutorial](http://hc.apache.org/httpcomponents-client-ga/tutorial/html/).
+Many web services use *query parameters* to specify the data associated with a request.  Query parameters are simple name/value pairs, where both names and values are strings.
 
-Example: let's say that we have a web service available that determines whether or not an integer is a prime number. It is accessed using the URI **/isPrime** on the server. It takes a single parameter, called **num**, which specifies the integer to test. It returns a plain text response consisting of the text **true** or **false**. If the request was not specified properly, such as not specifying a **num** parameter, or specifying a **num** parameter that is not an integer, the service returns a response with the code 400 (Bad Request), and returns a plain text error message in the body of the message.
+Both **GET** and **POST** requests can have query parameters, but they are handled in slightly different ways.
 
-Here is code to use this web service:
+A **GET** request encodes its parameters in a query string, which is part of the URI (Uniform Request Identifier) describing the information the client wants from the server.
 
-	Scanner keyboard = new Scanner(System.in);
-	
-	// Get the host (server) the web service is running on
-	System.out.print("Host for web service: ");
-	String host = keyboard.nextLine();
-	
-	// Get integer to check
-	System.out.println("Integer to check: ");
-	int num = keyboard.nextInt();
-	
-	// Create an HttpClient
-	HttpClient client = new DefaultHttpClient();
-	
-	// Create a URI to access the web service, encoding the
-	// number as a query parameter
-	List<NameValuePair> params = new ArrayList<NameValuePair>();
-	params.add(new BasicNameValuePair("num", String.valueOf(num)));
-	URI uri = URIUtils.createURI("http", host, -1, "/isPrime", 
-		    URLEncodedUtils.format(params, "UTF-8"), null);
+Query parameters are good for encoding small bits of information, but are not well-suited to larger chunks of information.
 
-	// Create an HttpGet object, which is the HTTP request
-	// we want to send
-	HttpGet request = new HttpGet(uri);
+A **POST** request can encode query parameters in the body of the request as a *url-encoded form*. **POST** requests are a better approach than **GET** requests if the request will contain large chunks of data.
 
-	// Execute the request, getting back an HttpResponse object
-	// representing the server's response
-	HttpResponse response = client.execute(request);
+It is easy to make POST requests with (url-form-encoded) query parameters using HttpComponents: just use an an **HttpPost** object for the request, and set its entity (body) to be a **UrlEncodedFormEntity**:
 
-	// Copy the response body to a string
-	HttpEntity entity = response.getEntity();
-	InputStreamReader reader = new InputStreamReader(entity.getContent(), Charset.forName("UTF-8"));
-	StringWriter sw = new StringWriter();
-	IOUtils.copy(reader, sw);
-	String responseBody = sw.toString();
-	
-	// The response's status code will indicate whether or not
-	// the request succeeded
-	if (response.getStatusLine().getStatusCode() != HttpStatus.SC_OK) {
-		System.out.println("Error: " + responseBody);
-	} else {
-		System.out.println(responseBody);
-	}
-
-### GET vs. POST
-
-An HTTP GET request encodes its parameters in a query string, which is part of the URI (Uniform Request Identifier) describing the information the client wants from the server.
-
-Query parameters are good for encoding small bits of information, but are not well-suited to larger chunks of information. An HTTP POST request encodes query parameters in the body of the HTTP request.
-
-It is fairly easy to make POST requests using HttpComponents: just use an an **HttpPost** object for the request, and set its entity (body) to be a **UrlEncodedFormEntity**:
-
-    HttpPost request = new HttpPost("http://" + host + "/isPrime");
+    List<NameValuePair> params = new ArrayList<NameValuePair>();
+    // ...add NameValuePair objects to params...
+    HttpPost request = new HttpPost("http://" + host + "/exampleService");
     request.setEntity(new UrlEncodedFormEntity(params));
 
 Note that the URI used to create the request no longer encodes the value of the **num** parameter.
 
-JSON
-----
+## JSON
 
-JSON is [JavaScript Object Notation](http://en.wikipedia.org/wiki/Json).  It is a general-purpose format for describing semi-structured data, and is very useful for serializing and deserializing objects.
+JSON is [JavaScript Object Notation](http://en.wikipedia.org/wiki/Json).  It is a general-purpose format for describing semi-structured data, and is very useful for serializing and deserializing objects.  Many web services use JSON to communicate data to and from the web service.  The result data sent by the geocoding service you will use in this lab is in JSON format.
 
 A JSON document typically will contain a single JSON *value*.  A JSON value can be
 
@@ -120,8 +73,7 @@ Example JSON document:
 
 This document is the result of a geocoding query on an address (725 Grantley Rd, zip code 17403). Note that it specifies a latitude and longitude for the address. Geocoding is useful for applications that need to do operations based on geographic locations.
 
-Interpreting JSON in a program
-------------------------------
+## Interpreting JSON in a program
 
 Both clients and providers of web services will need a way of converting data to and from JSON format.
 
@@ -133,16 +85,11 @@ In the **CS496\_Lab05\_Geocoding** package is a class called **PostalCode**, whi
 
 As we have seen previously, the Jackson library automatically handles the conversion from JSON to a Java object (POJO).
 
-Activity
-========
+# Your Task
 
-Getting started:
+Your task is to implement the **geocode** method in the **Main** class.  It takes a street address and zip code, and returns a **PostalCode** object representing the result of geocoding the address.
 
-Download [CS496\_Lab05\_Geocoding.zip](CS496_Lab05_Geocoding.zip) and [CS496\_Lab05a.zip](CS496_Lab05a.zip) and import them into Eclipse.
-
-Your task is to write a Java program which, given any two US addresses specified as street address and zip code, will print the distance in miles between them.
-
-Example run (user input in **bold**):
+A **main** method is provided.  It takes two street addresses and zip codes, and uses the **geocode** method on them, and then computes the approximate geographical distance between them.  Example run (user input in **bold**):
 
 <pre>
 First street address: <b>725 Grantley Rd</b>
@@ -152,25 +99,28 @@ Second zip code      : <b>20500</b>
 Distance is 74.80 miles
 </pre>
 
-Use the free geocoding API described here:
-
-> <http://www.geonames.org/export/free-geocoding.html>
-
-You will need to use the following parameters:
-
--   **postalcode** - the zip code
--   **placeName** - the street address
--   **country** - should be set to "US"
-
-The result is an JSON-encoded document in the format shown above in the JSON section.
-
-You can find the (approximate) distance in miles between two points (*lat1,lng1* and *lat2,lng2*) using the following formula:
+The **ComputeDistance** controller in the **CS496\_Lab05\_Geocoding** project computes approximate geographic distance between two locations specified by GPS coordinates (latitude/longitude).  It uses the following formula:
 
     double dist = 3956 * 2 * Math.asin(
             Math.sqrt(
                 Math.pow(Math.sin((lat1 - lat2)*Math.PI / 180 / 2), 2) +
                 Math.cos(lat1 * Math.PI / 180) * Math.cos(lat1 * Math.PI / 180) *
                 Math.pow(Math.sin((lng1 - lng2) * Math.PI / 180 / 2), 2)));
+
+## Implementing the geocode method
+
+Use the free geocoding API described here:
+
+> <http://www.geonames.org/export/free-geocoding.html>
+
+You will need to use a **GET** request with the following query parameters:
+
+-   **postalcode** - the zip code
+-   **placeName** - the street address
+-   **country** - should be set to "US"
+-   **username** - should be set to "ycpcs\_cs496"
+
+The result is an JSON-encoded document in the format shown above in the JSON section.  Use the Jackson **ObjectMapper** to convert it to a **PostalCodes** object.  Return the first **PostalCode** contained in that object as the result of the **geocode** method.
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
