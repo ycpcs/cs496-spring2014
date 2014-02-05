@@ -14,7 +14,7 @@ announced in class and on the course web page.
 > Tues, Feb 4 | [Lecture 4: Basic mobile framework](lectures/lecture04.html) | [Creating an Android Project](http://developer.android.com/training/basics/firstapp/creating-project.html), [Running Your App](http://developer.android.com/training/basics/firstapp/running-app.html)
 > Thurs, Feb 6 | [Lecture 5: RESTful requests](lectures/lecture05.html) | 
 > Tues, Feb 11 | [Lecture 6: Mobile UI - part I: Android widgets and basic layouts](lectures/lecture06.html) | [Building a Simple User Interface](http://developer.android.com/training/basics/firstapp/building-ui.html)  
-> Thurs, Feb 13 | Lecture 7: Mobile UI, part II
+> Thurs, Feb 13 | [Lecture 7: Mobile UI - part II: more views](lectures/lecture07.html) | 
 > Tues, Feb 18 | Lecture 8: HTML and CSS
 > Thurs, Feb 20 | Lecture 9: Dynamic HTML, Javascript
 > Tues, Feb 25 | Lecture 10: Web Applications

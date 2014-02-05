@@ -16,3 +16,4 @@ If you find any mistakes, please [let us know](mailto:dhovemey@ycp.edu).
 - [Lecture 4: Basic Mobile Framework](lecture04.html)
 - [Lecture 5: RESTful requests](lecture05.html)
 - [Lecture 6: Mobile UI - Part I: Android Widgets and Basic Layouts](lecture06.html)
+- [Lecture 7: Mobile UI - Part II: More Views](lecture07.html)
