@@ -16,7 +16,7 @@ As a review, the four types of HTTP methods called by REST requests are
 REST Objects
 ============
 
-Java supports a variety of [Apache HttpComponents](http://hc.apache.org/) that allow for the creation of different REST requests. The basic structure for all the requests it to create an **HTTPClient** object, an appropriate **URI**
+The [Apache HttpComponents](http://hc.apache.org/) library allows for the creation of different REST requests. The basic structure for all the requests it to create an **HTTPClient** object, an appropriate **URI**
 
     // Create HTTP client
     HttpClient client = new DefaultHttpClient();
