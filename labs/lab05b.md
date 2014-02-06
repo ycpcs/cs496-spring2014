@@ -11,7 +11,7 @@ Background
 Android UI Widgets
 ------------------
 
-Most views in an Android application contain various UI widgets that allow user interaction with the program. The types of widgets and their layout can be described either through XML files (good for static layouts) or created dynamically at run time programatically (good for dynamic layouts). We will explore designing UI layouts later in the course. For this lab, the view layout is contained in the *res/layout/activity_main.xml* file which will be loaded by the activity's **.onCreate()** method. An example file for a basic application that simply displays a single line of text is:
+Most views in an Android application contain various UI widgets that allow user interaction with the program. The types of widgets and their layout can be described either through XML files (good for static layouts) or created dynamically at run time programatically (good for dynamic layouts). We will explore designing UI layouts later in the course. For this lab, the view layout is contained in the **res/layout/activity_main.xml** file which will be loaded by the activity's **.onCreate()** method. An example file for a basic application that simply displays a single line of text is:
 
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,12 +27,12 @@ Most views in an Android application contain various UI widgets that allow user 
 
     </LinearLayout>
 
-Note that the *TextView* (which is basically a label) can be referred to in the application by its *id* (**helloLabel** in this example). The *id* allows us to access and/or modify a UI component. Thus, for example, we could programatically change the text for the label in the above Activity by
+Note that the **TextView** (which is basically a label) can be referred to in the application by its **id** (**helloLabel** in this example). The **id** allows us to access and/or modify a UI component. Thus, for example, we could programatically change the text for the label in the above Activity by
 
     TextView label = (TextView) findViewById(R.id.helloLabel);
     label.SetText("How are you?");
 
-Here the method **.findViewById()** accesses the resources of the application through the *R* object (which contains all of the resources included in the app). Note the correspondance between the requested *id* and the one specified in the XML file.
+Here the method **.findViewById()** accesses the resources of the application through the **R** object (which contains all of the resources included in the app). Note the correspondance between the requested **id** and the one specified in the XML file.
 
 HTTP requests in Android
 ------------------------
