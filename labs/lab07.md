@@ -57,78 +57,80 @@ The grid tab should appear as
 
 > ![image](images/lab07/gridview.png)
 
-Advanced Views
-==============
+Advanced Views [Optional]
+=========================
+
+For this lab use the code in the **CS496\_Lab07\_Images** project. Since this app is significantly more complicated, most of the code has been provided in the descriptions below.
 
 We can enhance the appearance of our list/grid views by incorporating images into the items within the views. However to do this requires creating our own adapter subclasses from the [BaseAdapter](http://developer.android.com/reference/android/widget/BaseAdapter.html) base class. We then need to override the **getView()** method which returns the view for each item to allow us to customize the returned views with whatever content we wish.
 
 Extend grid tab to display flag images
 --------------------------------------
 
-In the **res/drawable** directory are thumbnail images for all the flags of the NATO countries (from [wikipedia](http://en.wikipedia.org/wiki/Member_states_of_NATO)). We can create a custom **ImageAdapter** class (from the [Android tutorials](http://developer.android.com/resources/tutorials/views/hello-gridview.html) that loads these images for the grid view.
+In the **res/drawable** directory are thumbnail images for all the flags of the NATO countries (from [wikipedia](http://en.wikipedia.org/wiki/Member_states_of_NATO)). We can create a custom **ImageAdapter** class (from the [Android tutorials](http://developer.android.com/resources/tutorials/views/hello-gridview.html)) that loads these images for the grid view.
 
 **Create custom ImageAdapter class**
 
-Create a new class named **ImageAdapter** which extends the **BaseAdapter** class. Add the following private fields to the class (for references to the images).
+Create a new class named **ImageAdapter** which extends the **BaseAdapter** class which contains the following private fields (for references to the images) and public methods.
 
-    // reference to the activity context
-    private Context mContext;
+	public class ImageAdapter extends BaseAdapter {
+		// Reference to Activity context
+		private Context mContext;
+	
+		// References to images
+		private Integer[] mThumbIds = {
+				R.drawable.belgium, R.drawable.bulgaria,
+				R.drawable.canada, R.drawable.croatia,
+				R.drawable.czechrepublic, R.drawable.denmark,
+				R.drawable.estonia, R.drawable.france,
+				R.drawable.germany, R.drawable.greece,
+				R.drawable.hungary, R.drawable.iceland,
+				R.drawable.italy, R.drawable.latvia,
+				R.drawable.lithuania, R.drawable.luxembourg,
+				R.drawable.netherlands, R.drawable.norway,
+				R.drawable.poland, R.drawable.portugal,
+				R.drawable.romania, R.drawable.slovakia,
+				R.drawable.slovenia, R.drawable.spain,
+				R.drawable.turkey, R.drawable.unitedkingdom,
+				R.drawable.unitedstates           
+		};
 
-    // references to our images
-    private Integer[] mThumbIds = {
-            R.drawable.belgium, R.drawable.bulgaria,
-            R.drawable.canada, R.drawable.croatia,
-            R.drawable.czechrepublic, R.drawable.denmark,
-            R.drawable.estonia, R.drawable.france,
-            R.drawable.germany, R.drawable.greece,
-            R.drawable.hungary, R.drawable.iceland,
-            R.drawable.italy, R.drawable.latvia,
-            R.drawable.lithuania, R.drawable.luxembourg,
-            R.drawable.netherlands, R.drawable.norway,
-            R.drawable.poland, R.drawable.portugal,
-            R.drawable.romania, R.drawable.slovakia,
-            R.drawable.slovenia, R.drawable.spain,
-            R.drawable.turkey, R.drawable.unitedkingdom,
-            R.drawable.unitedstates           
-    };  
+		public ImageAdapter(Context c) {
+			mContext = c;
+		}
 
-Next add the following methods to the class
+		public int getCount() {
+			return mThumbIds.length;
+		}
 
-    public ImageAdapter(Context c) {
-        mContext = c;
-    }
+		public Object getItem(int position) {
+			return null;
+		}
 
-    public int getCount() {
-        return mThumbIds.length;
-    }
+		public long getItemId(int position) {
+			return position;
+		}
 
-    public Object getItem(int position) {
-        return null;
-    }
+		// create a new ImageView for each item referenced by the Adapter
+		public View getView(int position, View convertView, ViewGroup parent) {
+			ImageView imageView;
+			if (convertView == null) {  // if it's not recycled, initialize some attributes
+				imageView = new ImageView(mContext);
+				imageView.setLayoutParams(new GridView.LayoutParams(44, 30));
+				imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+				imageView.setPadding(8, 8, 8, 8);
+			} else {
+				imageView = (ImageView) convertView;
+			}
 
-    public long getItemId(int position) {
-        return position;
-    }
-
-    // create a new ImageView for each item referenced by the Adapter
-    public View getView(int position, View convertView, ViewGroup parent) {
-        ImageView imageView;
-        if (convertView == null) {  // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(44, 30));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            imageView = (ImageView) convertView;
-        }
-
-        imageView.setImageResource(mThumbIds[position]);
-        return imageView;
-    }
+			imageView.setImageResource(mThumbIds[position]);
+			return imageView;
+		}
+	}
 
 The important method is **getView()** which takes as a parameter the **position** of the particular cell which we can use to access the corresponding image from the resources. We then use the image resource to create an **ImageView** which is displayed in the grid cell.
 
-Finally in the **GridTabActivity** class, rather than using the **string-array** adapter, simply use an instance of the ImageAdapter by
+In the **GridTabActivity** class, rather than using the **string-array** adapter, use an instance of the ImageAdapter by
 
     gv.setAdapter(new ImageAdapter(this));
 
@@ -136,16 +138,16 @@ Now the grid tab should look like
 
 > ![image](images/lab07/imagegrid.png)
 
-Furthermore in the item click callback, you could use the **pos** parameter (returned by the **getItemId()** method in the **ImageAdapter** class) to access an element of the string array (retrieved from the string resources) containing the names of the countries to produce a **Toast** message with the selected country's name.
+Note: In the item click callback, we use the **pos** parameter (returned by the **getItemId()** method in the **ImageAdapter** class) to access an element of the string array (retrieved from the string resources) containing the names of the countries to produce a **Toast** message with the selected country's name.
 
 Extend the list tab to display images and text
 ----------------------------------------------
 
-Often it is useful to be able to customize the rows in a list view, e.g. to contain images and text. Again to accomplish this we will use a customized adapter class that populates the fields of a view defined by an XML file (based on [this example](http://blog.sptechnolab.com/2011/02/01/android/android-custom-listview-items-and-adapters/)).
+Often it is useful to be able to customize the rows in a list view, e.g. to contain images and text. Again to accomplish this we will use a customized adapter class that populates the fields of a view defined by an XML file.
 
 **Create the view for rows in the list**
 
-Create a file named **list.xml** in the **res/layout** directory which will contain the layout for the rows. Since we want to have an image and country name text field, our layout might be:
+Create a file named **list.xml** in the **res/layout** directory which will contain the layout for the rows. Since we want to have an image and country name text field, our layout could be:
 
     <?xml version="1.0" encoding="utf-8"?>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -163,14 +165,14 @@ Create a file named **list.xml** in the **res/layout** directory which will cont
         android:id="@+id/title"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        android:textColor="#ffffff"
+        android:textColor="#000000"
         android:textSize="16sp" />
 
     </LinearLayout>
 
-**Add local fields**
+**ListTabActivity**
 
-Now in the **ListTabActivity** class we will add the following fields
+The **ListTabActivity** class now contains the following private fields
 
     private LayoutInflater mInflater;
     private Vector<RowData> data;
@@ -194,31 +196,11 @@ Now in the **ListTabActivity** class we will add the following fields
             R.drawable.unitedstates           
     };
 
-    // references to our images
-    static final String[] title = {
-            "Belgium", "Bulgaria",
-            "Canada", "Croatia",
-            "Czech Republic", "Denmark",
-            "Estonia", "France",
-            "Germany", "Greece",
-            "Hungary", "Iceland",
-            "Italy", "Latvia",
-            "Lithuania", "Luxembourg",
-            "Netherlands", "Norway",
-            "Poland", "Portugal",
-            "Romania", "Slovakia",
-            "Slovenia", "Spain",
-            "Turkey", "United Kingdom",
-            "United States"           
-    };
-
-which creates a local **LayoutInflater** object which will be used to parse out the XML layout file, a *Vector* of *RowData* objects for the entire list which will be used to initialize the custom adapter, a **RowData** object (to be defined later) which will create each individual row, and two local arrays containing the image references with corresponding text strings.
-
-**Add local helper classes**
+which creates a local **LayoutInflater** object which will be used to parse out the XML layout file, a *Vector* of *RowData* objects for the entire list which will be used to initialize the custom adapter, a **RowData** object (to be defined later) which will create each individual row, and a local arrays containing the image references.
 
 **RowData**
 
-Next add a local private class named **RowData** as
+Add a local private class inside **ListTabActivity** named **RowData** as
 
     private class RowData {
         protected int mId;
@@ -240,7 +222,7 @@ which simply has a constructor and a **toString()** method which returns a strin
 
 **CustomAdapter**
 
-Now add a local private class for the custom adapter named **CustomAdapter** that extends **ArrayAdapter<RowData\>** as
+Add a local private class inside **ListTabActivity** for the custom adapter named **CustomAdapter** that extends **ArrayAdapter<RowData\>** as
 
     private class CustomAdapter extends ArrayAdapter<RowData> {
 
@@ -284,7 +266,7 @@ where the **getView()** method parses up the row XML layout using the **LayoutIn
 
 **ViewHolder**
 
-Create one more local private class named **ViewHolder** as
+Add one more local private class inside **ListTabActivity** named **ViewHolder** as
 
     private class ViewHolder {
         private View mRow;
@@ -313,32 +295,27 @@ which basically just contains getter methods for the various layout objects stor
 
 **Instantiate the adapter for the list**
 
-Finally, in the **onCreate()** method for the activity we can instantiate a **CustomAdapter** and use it to populate the list as
+Using these helper classes, in the **onCreate()** method for the activity we can instantiate a **CustomAdapter** and use it to populate the list as
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.imagelist_layout);
+	mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
+	data = new Vector<RowData>();
+	for(int i=0;i<title.length;i++){
 
-        mInflater = (LayoutInflater) getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-        data = new Vector<RowData>();
-        for(int i=0;i<title.length;i++){
-
-            try {
-                rd = new RowData(i,title[i]);
-            } catch (ParseException e) {
-                    e.printStackTrace();
-            }
-            data.add(rd);
-        }
-        CustomAdapter adapter = new CustomAdapter(this, R.layout.list,
-                                                 R.id.title, data);
-        setListAdapter(adapter);
-        getListView().setTextFilterEnabled(true);
-    }
+		try {
+			rd = new RowData(i,title[i]);
+		} catch (ParseException e) {
+				e.printStackTrace();
+		}
+		data.add(rd);
+	}
+	CustomAdapter adapter = new CustomAdapter(this, R.layout.list,
+											 R.id.title, data);
+	setListAdapter(adapter);
+	getListView().setTextFilterEnabled(true);
 
 where we obtain the **LayoutInflater** object for the activity, generate new rows for each of the items in the local arrays, create the adapter using the vector of row data, and finally use the adapter for the list.
 
-An item click callback can also be added to perform some behavior based on a selected item from the list.
+An item click callback has been provided to display a Toast message when a row is selected.
 
 The list view should look similar to
 
