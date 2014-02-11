@@ -83,7 +83,7 @@ Any interesting HTML document doesn't just contain an undifferentiated mass of t
 
 A **span** element is a linear sequence of text: basically, a sentence (or part of a sentence).
 
-A **div** element is a "block" which encompasses other elements, allowing you to mark entire regions of a document.
+A **div** element is a "block" which encompasses other elements and text, allowing you to mark entire regions of a document.
 
 Let's say we're going to make a website to display items (kinds of fruit) we have in our inventory database. We'll want to display a page describing each item. Each item page will contain several distinct sections:
 
