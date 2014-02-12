@@ -10,7 +10,7 @@ This is an **individual** assignment
 Getting Started
 ===============
 
-Download [CS496\_Assign02.zip](CS496_Assign02.zip) and import into Eclipse. 
+Download [CS496\_Assign02.zip](CS496_Assign02.zip) and [CS496\_Assign02\_WebService.zip](CS496_Assign02_WebService.zip) and import them into the Eclipse workspace you use for Android development.  (Use the ADT version of Eclipse.)  Also download and import [CS496\_Jetty.zip](CS496_Jetty.zip) if it is not already in your workspace.
 
 This assignment consists of creating a mobile client to access the inventory web service created in [Assignment 1](assign01.html). Hence the same **Item** model object will be used in order to maintain JSON compatibility.
 
@@ -63,7 +63,9 @@ Since **PUT**, **POST**, and **DELETE** do not inherently generate output, displ
 Hints
 -----
 
-For the URI's, you can access the server running on **localhost** through the Android emulator via the IP address 10.0.2.2 and port 8081.
+In order to test your mobile client, you can run the provided web service implementation by running the **Main** class in the **CS496\_Assign02\_WebService** project as a Java application.
+
+For the URI's, you can access the web service running on **localhost** through the Android emulator via the IP address 10.0.2.2 and port 8081.
 
 Use separate controller objects for each of the REST requests (similar to server side) that are called from the corresponding button click callbacks. In each class, have a method which instantiates an appropriate **HttpGet**, **HttpPut**, **HttpPost**, or **HttpDelete** object.
 
@@ -114,7 +116,7 @@ Alternatively, export the **CS496\_Assign02** project to a zipfile, and upload t
 > [https://cs.ycp.edu/marmoset](https://cs.ycp.edu/marmoset)
 
 <div class="callout">
-<b>Important</b>: please do <b>not</b> submit the <b>CS496_Jetty</b> project as part of your submission.  Only submit <b>CS496_Assign02</b>.
+<b>Important</b>: please do <b>not</b> submit the <b>CS496_Jetty</b> or <b>CS496_Assign02_WebService</b> projects as part of your submission.  Only submit <b>CS496_Assign02</b>.
 </div>
 
 <!-- vim:set wrap: ­-->
