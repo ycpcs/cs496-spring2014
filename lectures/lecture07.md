@@ -74,7 +74,8 @@ TabActivity
 The tabbed layout is created by subclassing the [TabActivity](http://developer.android.com/reference/android/app/TabActivity.html) class and then setting up the various tabs in the **onCreate()** method by associating a TabHost object with the XML resource and creating the individual tabs by calling the **newTabSpec()** method on the TabHost object which takes as a parameter a string identifier for the tab. Each tab is also associated with an [Intent](http://developer.android.com/reference/android/content/Intent.html) which specifies the activity to start when the tab is selected. The text to be displayed in the tab, the icons to use for the tab, and the associated activity for the tab are then set with the **setIndicator()** method. Thus example code for creating a tab named "Tab1" that is associated with the **Tab1Activity** class and using a resource object **res** might be
 
     Intent tab1Intent = new Intent().setClass(this, Tab1Activity.class);
-    TabHost.TabSpec tab1spec = tabHost.newTabSpec("tab1").setIndicator("Tab1", res.getDrawable(R.drawable.ic_tab1)).setContent(tab1Intent);
+    TabHost.TabSpec tab1spec = tabHost.newTabSpec("tab1").setIndicator(
+        "Tab1", res.getDrawable(R.drawable.ic_tab1)).setContent(tab1Intent);
     tabHost.addTab(tab1spec);
 
 Thus to create the entire tabbed layout, a **Resources** object is obtained (which allows the icons to be retrieved), a **TabHost** object is obtained, then **TabHost.TabSpec** objects are created for each tab. After all the tabs have been created, the initial one is specified by calling **setCurrentTab()** (tab indices start at 1). Hence a complete **onCreate()** method might be:
@@ -97,12 +98,14 @@ Thus to create the entire tabbed layout, a **Resources** object is obtained (whi
 
         // Create first tab
         tabIntent = new Intent().setClass(this, Tab1Activity.class);
-        tabSpec = tabHost.newTabSpec("tab1").setIndicator("Tab1", res.getDrawable(R.drawable.ic_tab1)).setContent(tabIntent);
+        tabSpec = tabHost.newTabSpec("tab1").setIndicator(
+            "Tab1", res.getDrawable(R.drawable.ic_tab1)).setContent(tabIntent);
         tabHost.addTab(tabSpec);
 
         // Create second tab
         tabIntent = new Intent().setClass(this, Tab2Activity.class);
-        tabSpec = tabHost.newTabSpec("tab2").setIndicator("Tab2", res.getDrawable(R.drawable.ic_tab2)).setContent(tabIntent);
+        tabSpec = tabHost.newTabSpec("tab2").setIndicator(
+            "Tab2", res.getDrawable(R.drawable.ic_tab2)).setContent(tabIntent);
         tabHost.addTab(tabSpec);
 
         // Select first tab initially
