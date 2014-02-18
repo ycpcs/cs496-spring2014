@@ -98,14 +98,16 @@ Thus to create the entire tabbed layout, a **Resources** object is obtained (whi
 
         // Create first tab
         tabIntent = new Intent().setClass(this, Tab1Activity.class);
-        tabSpec = tabHost.newTabSpec("tab1").setIndicator(
-            "Tab1", res.getDrawable(R.drawable.ic_tab1)).setContent(tabIntent);
+        tabSpec = tabHost.newTabSpec("tab1")
+             .setIndicator("Tab1", res.getDrawable(R.drawable.ic_tab1))
+             .setContent(tabIntent);
         tabHost.addTab(tabSpec);
 
         // Create second tab
         tabIntent = new Intent().setClass(this, Tab2Activity.class);
-        tabSpec = tabHost.newTabSpec("tab2").setIndicator(
-            "Tab2", res.getDrawable(R.drawable.ic_tab2)).setContent(tabIntent);
+        tabSpec = tabHost.newTabSpec("tab2")
+            .setIndicator("Tab2", res.getDrawable(R.drawable.ic_tab2))
+            .setContent(tabIntent);
         tabHost.addTab(tabSpec);
 
         // Select first tab initially
