@@ -18,7 +18,7 @@ announced in class and on the course web page.
 > Tues, Feb 18 | [Lecture 7: Mobile UI - part II: more views](lectures/lecture07.html)  <br /> [Lecture 7b: UI Considerations](lectures/lecture07b.html) | [Keeping Your App Responsive](http://developer.android.com/training/articles/perf-anr.html)
 > Thurs, Feb 20 | [Lecture 8: HTML and CSS](lectures/lecture08.html) | [Starting with HTML + CSS](http://www.w3.org/Style/Examples/011/firstcss.en.html) by Bert Bos
 > Tues, Feb 25 | [Lecture 9: Dynamic HTML, JavaScript](lectures/lecture09.html) | [JavaScript Tutorial](http://www.w3schools.com/js/) at [w3schools.com](http://www.w3schools.com)
-> Thurs, Feb 27 | Lecture 10: Web Applications
+> Thurs, Feb 27 | [Lecture 10: Web Applications](lectures/lecture10.html) | 
 > Tues, Mar 4 | Winter vacation, no class
 > Thurs, Mar 6 | Winter vacation, no class
 > Tues, Mar 11 | Lecture 11: AJAX
