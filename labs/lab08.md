@@ -8,7 +8,7 @@ Your Task
 
 Use HTML and CSS to create a resume that looks like the following (click for full-size):
 
-> <a href="images/lab08.gc/resume.png"><img style="width: 500px;" src="images/lab08/resume.png" /></a>
+> <a href="images/lab08/resume.png"><img style="width: 500px;" src="images/lab08/resume.png" /></a>
 
 The text in the page title should be rendered in small caps.
 
