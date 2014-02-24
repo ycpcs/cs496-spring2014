@@ -1,6 +1,6 @@
 ---
 layout: default
-title: "Lecture 9: Dynamic HTML, Javascript, jQuery"
+title: "Lecture 9: Dynamic HTML, JavaScript, jQuery"
 ---
 
 Dynamic HTML
@@ -10,11 +10,11 @@ An HTML document is a tree. Each node of the tree is an element or a chunk of te
 
 In a static HTML document, the tree is fixed.
 
-In a *dynamic* HTML document, the tree changes: nodes can be added or removed, and CSS properties can be changed. Dynamic HTML allows a full GUI to be implemented in a web page!
+In a *dynamic* HTML document, the tree changes in response to events (including user input events): nodes can be added or removed, and CSS properties can be changed. Dynamic HTML allows a full GUI to be implemented in a web page!
 
-Because dynamic HTML supports arbitrary runtime behavior, it needs a programming language to specify the behavior. This language is Javascript.
+Because dynamic HTML supports arbitrary runtime behavior, it needs a programming language to specify the behavior. This language is JavaScript.
 
-Javascript
+JavaScript
 ==========
 
 Features:
@@ -24,12 +24,12 @@ Features:
 -   Syntax is superficially similar to Java
 -   Supports closures (anonymous functions which can access/modify variables in their lexical scope)
 
-When using Javascript to implement dynamic HTML, the general idea is to use Javascript to access elements in the DOM tree and call methods on them to change their properties, register event handlers, etc.
+When using JavaScript to implement dynamic HTML, the general idea is to use JavaScript to access elements in the DOM tree and call methods on them to change their properties, register event handlers, etc.
 
 jQuery
 ======
 
-Because doing operations on elements of the DOM tree is so important in Javascript, various libraries have been implemented to make it easy to do this. One of the most important and widely-used libraries is [jQuery](http://jquery.com).
+Because doing operations on elements of the DOM tree is so important in JavaScript, various libraries have been implemented to make it easy to do this. One of the most important and widely-used libraries is [jQuery](http://jquery.com).
 
 Using jQuery typically involves selecting one or more nodes in the DOM tree: this is the "query" part of jQuery. Then, you perform some operation on the selected nodes.
 
@@ -66,10 +66,7 @@ Showing/Hiding Elements
         </style>
 
         <!-- Get jQuery from google CDN -->
-        <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-            type="text/javascript">
-        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
           $(document).ready(function() {
@@ -96,17 +93,17 @@ Showing/Hiding Elements
       </body>
     </html>
 
-<a href="lecture09/showhide.html">Link</a>
+[Link](lecture09/showhide.html)
 
 Some things to notice:
 
-The **&lt;script&gt;** tag references some Javascript code, either in a separate document or inline
+The **&lt;script&gt;** tag references some JavaScript code, either in a separate document or inline
 
 jQuery operations involve calling a function called "$".
 
-**$(document).ready(...)** executes some code when the web page is fully loaded, meaning that the entire DOM tree is in place and all Javascript code has been loaded.
+**$(document).ready(...)** executes some code when the web page is fully loaded, meaning that the entire DOM tree is in place and all JavaScript code has been loaded.
 
-Javascript of the form **function() { ... }** is a *closure*. A closure is an anonymous function which can use variables defined in the current scope. You may recall closures from learning about Scheme in CS 340.
+JavaScript of the form **function() { ... }** is a *closure*. A closure is an anonymous function which can use variables defined in the current scope.
 
 A jQuery call of the form **$("***selector***")** selects all DOM elements matching the given selector. The selector syntax is the same as for selectors in CSS rules. So, for example, **$("\#clickhere")** selects the element with the id **clickhere**. Note that the call does not return a DOM element (or a list of DOM elements): it returns a "jQuery object" which represents the results of the search. The idea is that when you call a method on a jQuery object, you are effectively performing an operation on all DOM elements that matched the query.
 
@@ -127,10 +124,7 @@ Client-side data processing
         </style>
 
         <!-- Get jQuery from google CDN -->
-        <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-            type="text/javascript">
-        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
           function getFirstNumber() {
@@ -193,7 +187,7 @@ Client-side data processing
       </body>
     </html>
 
-<a href="lecture09/data.html">Link</a>
+[Link](lecture09/data.html)
 
 Some things to notice:
 
@@ -216,14 +210,8 @@ Drawing on a canvas
 
     <html>
       <head>
-        <style type="text/css">
-        </style>
-
         <!-- Get jQuery from google CDN -->
-        <script
-            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"
-            type="text/javascript">
-        </script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
 
         <script type="text/javascript">
           $(document).ready(function() {
@@ -232,15 +220,15 @@ Drawing on a canvas
             var circles = [];
 
             $("#makeCircle").click(function() {
-              var x = Math.floor(Math.random() * 400);
-              var y = Math.floor(Math.random() * 300);
+              var x = Math.floor(Math.random() * 640);
+              var y = Math.floor(Math.random() * 480);
 
               circles.push({ x: x, y: y, color: colors[Math.floor(Math.random() * 3)] });
             });
 
             window.tick = function() {
               var ctx = $("#canvas").get(0).getContext("2d");
-              ctx.clearRect(0, 0, 400, 300);
+              ctx.clearRect(0, 0, 640, 480);
 
               for (var i = 0; i < circles.length; i++) {
                 var c = circles[i];
@@ -264,18 +252,18 @@ Drawing on a canvas
 
       <body>
         <div>
-          <canvas id="canvas" width="400" height="300"></canvas>
+          <canvas id="canvas" width="640" height="480"></canvas>
         </div>
 
         <button id="makeCircle">Make circle</button>
       </body>
     </html>
 
-<a href="lecture09/canvas.html">Link</a>
+[Link](lecture09/canvas.html)
 
 Some things to notice:
 
-Javascript variables are introduced using the **var** keyword. Notice that they have no type.
+JavaScript variables are introduced using the **var** keyword. Notice that they have no type.
 
 A **canvas** element can be used as a 2-D drawing surface.
 
