@@ -23,6 +23,11 @@ Step 3
 
 Implement collisions between the balls.
 
+Step 4
+------
+
+Add features to create the next smash indie game hit, make huge $$$.  Be sure to give your instructors a share of the royalties.
+
 Hints
 -----
 
