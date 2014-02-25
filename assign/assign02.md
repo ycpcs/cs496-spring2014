@@ -3,7 +3,7 @@ layout: default
 title: "Assignment 2: Mobile Inventory Client"
 ---
 
-**Due:** Tuesday, Feb 25th by 11:59 PM
+**Due:** Friday, Feb 28th by 11:59 PM
 
 This is an **individual** assignment
 

@@ -17,6 +17,7 @@ All information about the course will be posted here.
 
 ## News
 
+* **Feb 25** - [Assignment 2](assign/assign02.html) due date extended to Friday, Feb 28th by 11:59PM.
 * **Feb 12** - [Assignment 2](assign/assign02.html) has been updated with a web service implementation you can use for testing your mobile client.
 * **Feb 12** - [Assignment 2](assign/assign02.html) is due Thurs, Feb 27th by 11:59 PM.  It is an **individual** assignment.
 * **Jan 28** - [Assignment 1](assign/assign01.html) is due Tues, Feb 11th by 11:59 PM.  It is an **individual** assignment.
