@@ -58,6 +58,9 @@ Your grade will be determined as follows (out of 100 points):
 * Editing an existing item: 30
 * Adding a new item: 30
 * Deleting an item: 30
+* Application is robust against cross-site scripting (XSS): 10 (\*)
+
+(\*) You should research cross-site scripting and how to avoid XSS vulnerabilities in JSPs.
 
 # Submitting
 
