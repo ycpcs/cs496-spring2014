@@ -14,7 +14,7 @@ Demos
 
 In-class demos will take place during the following class periods:
 
--   March 15th - Project Proposal - shared Google Doc
+-   March 17th - Project Proposal - shared Google Doc
 -   April 3rd - Minimal Working System Demo
 -   April 22nd - 50% Working System Demo
 -   May 13th - Final Working System Demo and Report
