@@ -5,7 +5,7 @@ title: "Assignment 3: Web Application"
 
 # Getting started
 
-Download [CS496\_Assign03.zip](CS496_Assign03.zip) and import it into Eclipse.
+Download [CS496\_Assign04.zip](CS496_Assign04.zip) and import it into Eclipse.
 
 # Your task
 
