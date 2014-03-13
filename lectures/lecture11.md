@@ -8,7 +8,7 @@ AJAX
 
 "Traditional" web applications generate HTML on the server, and the client interacts with the application by submitting data in HTML forms using POST requests. In this model, the page must be reloaded each time the user submits a request.
 
-Modern web applications can use a technique known as [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming)), in which Javascript code running in the client web browser sends a request to the HTTP server without a page reload. The server response is received asynchronously, at which point the client user interface can be updated by the Javascript code.
+Modern web applications can use a technique known as [AJAX](http://en.wikipedia.org/wiki/Ajax_(programming), in which Javascript code running in the client web browser sends a request to the HTTP server without a page reload. The server response is received asynchronously, at which point the client user interface can be updated by the Javascript code.
 
 The combination of AJAX and [dynamic HTML](lecture9.html) allows the creation of fully-featured user interfaces that run within the client web browser and communicate with the server when necessary.
 
@@ -44,7 +44,7 @@ Here is the HTML:
             $("#addNumbersButton").click(function() {
               $.ajax({
                 type: 'POST',
-                url: '/lab12/ajax/addNumbers',
+                url: '/lab11/ajax/addNumbers',
                 data: { first: $("#firstNumberElt").val(), second: $("#secondNumberElt").val() },
                 success:
                   function(data, textStatus, jqXHR) {
@@ -87,10 +87,10 @@ Here is the HTML:
 
 **Important**: this is just a static HTML document! This is an interesting advantage of AJAX over the traditional form submission/page reload model: the user interface can be static HTML, which can be delivered once (not multiple times) and cached by the client.
 
-The important part is the call to the **\$.ajax** method. This is a method provided by jQuery to simplify AJAX requests. The value passed to the method is a Javascript object whose fields describe the request. The important fields are:
+The important part is the call to the **$.ajax** method. This is a method provided by jQuery to simplify AJAX requests. The value passed to the method is a Javascript object whose fields describe the request. The important fields are:
 
 -   **type** - the type of HTTP request. In the example above it's POST, but it could also be GET. Note that web browsers can only generate GET and POST requests.
--   **url** - the URL of the servlet that will be handling the request. In this case, it's the servlet handling requests to **/lab12/ajax/addNumbers**.
+-   **url** - the URL of the servlet that will be handling the request. In this case, it's the servlet handling requests to **/lab11/ajax/addNumbers**.
 -   **data** - a Javascript object whose fields are parameters to be sent to the servlet, and whose values are the values of those parameters. In the example above, the parameters are called **first** and **second** and their values are the values found in the textboxes in the UI.
 -   **success** - the success callback. It takes the data received from the server and sets it as text in the result span element in the UI, displaying the result of the computation to the user.
 -   **error** - the error callback. Sets an error message in the error message span element in the UI.
@@ -98,7 +98,7 @@ The important part is the call to the **\$.ajax** method. This is a method provi
 
 Here is the servlet which handles the requests:
 
-    package edu.ycp.cs496.lab12.servlet.ajax;
+    package edu.ycp.cs496.lab11.servlet.ajax;
 
     import java.io.IOException;
 
@@ -107,7 +107,7 @@ Here is the servlet which handles the requests:
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
 
-    import edu.ycp.cs496.lab12.controller.AddNumbersController;
+    import edu.ycp.cs496.lab11.controller.AddNumbersController;
 
     public class AddNumbersAjaxServlet extends HttpServlet {
       private static final long serialVersionUID = 1L;
@@ -252,7 +252,7 @@ Here's the HTML/Javascript:
             guess: function() {
               $.ajax({
                 type: 'POST',
-                url: '/lab12/ajax/nextGuess',
+                url: '/lab11/ajax/nextGuess',
                 data: gg.game,
                 success: function(data, textStatus, jqXHR) {
                   gg.game = data;
@@ -280,14 +280,14 @@ Here's the HTML/Javascript:
 Some things to note:
 
 -   The code creates an object called **window.gg**, which contains as fields the methdos which implement the guessing game. (Note that the Javascript **window** object serves as a global scope for Javascript code running in a web browser window.) This is a common implementation approach: this object is essentially a namespace. Because many Javascript libraries can be loaded in the context of the same HTML document, using namespaces avoids naming conflicts between their methods.
--   The user interface is built dynamically: note that the **\<body\>** element is initially empty. The **gg.begin** method creates an initial user interface by appending child elements to the **\<body\>** element.
+-   The user interface is built dynamically: note that the **&lt;body&gt;** element is initially empty. The **gg.begin** method creates an initial user interface by appending child elements to the **&lt;body&gt;** element.
 -   The **gg.game** object is a model object for the guessing game, specifying the current min and max values. The **gg.startGame** method initializes this model object.
 -   The **gg.guess** method fetches the next guess from the server by sending the **gg.game** object's values as the query parameters. The response sent back by the server is expected to be an updated model object in JSON format. Note how the success callback for the AJAX request treats its **data** parameter as an object!
 -   The button handlers for the **\#less** and **\#more** buttons set an **action** parameter in the current model object. This will let the **nextGuess** servlet know that the previous guess was either too high or too low.
 
 Here is the implementation of **NextGuessAjaxServlet**:
 
-    package edu.ycp.cs496.lab12.servlet.ajax;
+    package edu.ycp.cs496.lab11.servlet.ajax;
 
     import java.io.IOException;
 
@@ -296,8 +296,8 @@ Here is the implementation of **NextGuessAjaxServlet**:
     import javax.servlet.http.HttpServletRequest;
     import javax.servlet.http.HttpServletResponse;
 
-    import edu.ycp.cs496.lab12.controller.GuessingGameController;
-    import edu.ycp.cs496.lab12.model.GuessingGame;
+    import edu.ycp.cs496.lab11.controller.GuessingGameController;
+    import edu.ycp.cs496.lab11.model.GuessingGame;
 
     public class NextGuessAjaxServlet extends HttpServlet {
       private static final long serialVersionUID = 1L;

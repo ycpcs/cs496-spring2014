@@ -3,6 +3,8 @@ layout: default
 title: "Assignment 4: Web Application"
 ---
 
+Due: Thurs, Mar 20th by 11:59 PM
+
 # Getting started
 
 Download [CS496\_Assign04.zip](CS496_Assign04.zip) and import it into Eclipse.

@@ -22,7 +22,7 @@ announced in class and on the course web page.
 > Tues, Mar 4 | Winter vacation, no class
 > Thurs, Mar 6 | Winter vacation, no class
 > Tues, Mar 11 | [Lecture 10: Web Applications](lectures/lecture10.html) | 
-> Thurs, Mar 13 | Lecture 11: AJAX
+> Thurs, Mar 13 | [Lecture 11: AJAX](lectures/lecture11.html) |
 > Tues, Mar 18 | Lecture 12: Basic Android 2D graphics
 > Thurs, Mar 20 | Lecture 13: Basic Android 3D graphics
 > Tues, Mar 25 | Lecture 14: Databases, SQL, JDBC
