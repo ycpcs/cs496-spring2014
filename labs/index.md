@@ -16,3 +16,4 @@ Although the labs are not graded and you are not required to submit them, they a
 > Feb 13 | [Lab 7: Different Views of NATO](lab07.html) <br /> [Lab 7b: Threaded Geocoding](lab07b.html)| [CS496\_Lab07.zip](CS496_Lab07.zip)
 > Feb 18 | [Lab 8: HTML and CSS](lab08.html) | n/a
 > Feb 25 | [Lab 9: JavaScript and jQuery](lab09.html) | n/a
+> Mar 13 | [Lab 11: AJAX](lab11.html) | [CS496\_Lab11.zip](CS496_Lab11.zip)
