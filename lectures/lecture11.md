@@ -258,7 +258,7 @@ Here's the HTML/Javascript:
                   gg.game = data;
                   $("#guess").text('Are you thinking of ' + gg.game.guess + '?'); 
                 },
-                error: function(jxXHR, textStatus, errorThrown) {
+                error: function(jqXHR, textStatus, errorThrown) {
                   alert(textStatus + ": " + errorThrown);
                 },
                 dataType: 'json'
