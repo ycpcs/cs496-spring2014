@@ -8,7 +8,7 @@ Getting Started
 
 Import [CS496\_Lab13.zip](CS496_Lab13.zip) into Eclipse (**Import-\>General-\>Existing Projects into Workspace-\>Archive File**).
 
-You should see source code for **OpenGLExample**, **OpenGLSurfaceView**, and **OpenGLRenderer**.
+You should see source code for **BasicOpenGL**, **OpenGLSurfaceView**, and **OpenGLRenderer**.
 
 Your Tasks
 ==========
