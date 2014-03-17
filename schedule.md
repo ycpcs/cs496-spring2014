@@ -23,7 +23,7 @@ announced in class and on the course web page.
 > Thurs, Mar 6 | Winter vacation, no class
 > Tues, Mar 11 | [Lecture 10: Web Applications](lectures/lecture10.html) | 
 > Thurs, Mar 13 | [Lecture 11: AJAX](lectures/lecture11.html) |
-> Tues, Mar 18 | Lecture 12: Basic Android 2D graphics
+> Tues, Mar 18 | [Lecture 12: Basic Android 2D graphics](lectures/lecture12.html) | [Canvas and Drawables](http://developer.android.com/guide/topics/graphics/2d-graphics.html)
 > Thurs, Mar 20 | Lecture 13: Basic Android 3D graphics
 > Tues, Mar 25 | Lecture 14: Databases, SQL, JDBC
 > Thurs, Mar 27 | Lecture 15: Modeling has-A relationships
