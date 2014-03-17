@@ -18,3 +18,4 @@ Although the labs are not graded and you are not required to submit them, they a
 > Feb 25 | [Lab 9: JavaScript and jQuery](lab09.html) | n/a
 > Mar 13 | [Lab 11: AJAX](lab11.html) | [CS496\_Lab11.zip](CS496_Lab11.zip)
 > Mar 18 | [Lab 12: Marble Madness](lab12.html) | [CS496\_Lab12.zip](CS496_Lab12.zip)
+> Mar 20 | [Lab 13: Mobile OpenGL](lab13.html) | [CS496\_Lab13.zip](CS496_Lab13.zip)

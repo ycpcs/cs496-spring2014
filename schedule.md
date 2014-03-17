@@ -24,7 +24,7 @@ announced in class and on the course web page.
 > Tues, Mar 11 | [Lecture 10: Web Applications](lectures/lecture10.html) | 
 > Thurs, Mar 13 | [Lecture 11: AJAX](lectures/lecture11.html) |
 > Tues, Mar 18 | [Lecture 12: Basic Android 2D graphics](lectures/lecture12.html) | [Canvas and Drawables](http://developer.android.com/guide/topics/graphics/2d-graphics.html)
-> Thurs, Mar 20 | Lecture 13: Basic Android 3D graphics
+> Thurs, Mar 20 | [Lecture 13: Basic Android 3D graphics](lectures/lecture13.html) | [Displaying Graphics with OpenGL ES](http://developer.android.com/training/graphics/opengl/index.html)
 > Tues, Mar 25 | Lecture 14: Databases, SQL, JDBC
 > Thurs, Mar 27 | Lecture 15: Modeling has-A relationships
 > Tues, Apr 1 | Lecture 16: Android and SQLite

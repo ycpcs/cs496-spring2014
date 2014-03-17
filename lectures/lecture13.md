@@ -3,9 +3,9 @@ layout: default
 title: "Lecture 13: Basic Android 3D Graphics"
 ---
 
-The Android platform provides 3D graphics functionality through the [OpenGL ES 2.0](http://www.khronos.org/opengles/2_X/) embedded graphics API. (Note that OpenGL 2.0 is supported for Android version 2.2 and higher.) This API provides much of the standard OpenGL functionality through programmable shaders. To utilize OpenGL ES, we will subclass GLSurfaceView that will contain the renderer and allow for any user interaction with the application. Additionally, we will create a class that implements the GLSurfaceView.Renderer interface which will contain the OpenGL rendering code. One major difference between OpenGL ES and the OpenGL graphics learned in CS370 is that all objects must be stored as *triangles* in a *vertex buffer* that is passed to the shaders for rendering (i.e. we cannot make geometry on the fly with calls to *glVertex3f()*, etc.) However, there is still full support for creating various projection modes (orthographic or perspective), positioning a camera in the scene (similar to *gluLookAt()*), and applying all the standard transformations on objects (rotations, translations, and scalings). There is also full support for lighting, blending, and textures using similar procedures (via shaders) as OpenGL, see the following [reference](http://www.khronos.org/opengles/sdk/docs/reference_cards/OpenGL-ES-2_0-Reference-card.pdf).
+The Android platform provides 3D graphics functionality through the [OpenGL ES 2.0](http://www.khronos.org/opengles/2_X/) embedded graphics API. (Note that OpenGL 2.0 is supported for Android version 2.2 and higher and OpenGL 3.0 is supported for Android version 4.3 and higher.) This API provides much of the standard OpenGL functionality through programmable shaders. To utilize OpenGL ES, we will subclass **GLSurfaceView** that will contain the renderer and allow for any user interaction with the application. Additionally, we will create a class that implements the **GLSurfaceView.Renderer** interface which will contain the OpenGL rendering code. One major difference between OpenGL ES and the OpenGL graphics learned in CS370 is that all objects must be stored as *triangles* in a *vertex buffer* that is passed to the shaders for rendering (i.e. we cannot make geometry on the fly with calls to **glVertex3f()**, etc.) However, there is still full support for creating various projection modes (orthographic or perspective), positioning a camera in the scene (similar to **gluLookAt()**), and applying all the standard transformations on objects (rotations, translations, and scalings). There is also full support for lighting, blending, and textures using similar procedures (via shaders) as OpenGL, see the following [reference](http://www.khronos.org/opengles/sdk/docs/reference_cards/OpenGL-ES-2_0-Reference-card.pdf).
 
-The material presented in this lecture are based on the Android [OpenGL tutorial](http://developer.android.com/resources/tutorials/opengl/opengl-es20.html) and thus is simply to provide a basic framework for OpenGL graphics.
+The material presented in this lecture is based on the Android [OpenGL tutorial](http://developer.android.com/training/graphics/opengl/index.html) and thus is simply to provide a basic framework for OpenGL graphics.
 
 **NOTE:** OpenGL is **NOT** currently supported by the emulator, thus you will need to have an OpenGL capable device to run the code in this lecture.
 
@@ -47,9 +47,9 @@ The activity for an OpenGL application will simply contain a [GLSurfaceView](htt
        }
     }   
 
-The *onPause()* and *onResume()* methods can be used to deallocate/allocate any graphics objects when the application is suspended/resumed.
+The **onPause()** and **onResume()** methods can be used to deallocate/allocate any graphics objects when the application is suspended/resumed.
 
-Also since the application needs OpenGL functionality, we must declare this in the *AndroidManifest.xml*
+Also since the application needs OpenGL functionality, we must declare this in the **AndroidManifest.xml**
 
     <!-- Tell the system this app requires OpenGL ES 2.0. -->
     <uses-feature android:glEsVersion="0x00020000" android:required="true" />
@@ -57,7 +57,7 @@ Also since the application needs OpenGL functionality, we must declare this in t
 OpenGL surface view
 ===================
 
-The surface view class will subclass *GLSurfaceView* and will simply create a renderer object (and eventually handle any touch events). Hence a basic implementation might be:
+The surface view class will subclass **GLSurfaceView** and will simply create a renderer object (and eventually handle any touch events). Hence a basic implementation might be:
 
     public class OpenGLSurfaceView extends GLSurfaceView {
        private OpenGLRenderer mRenderer;
@@ -79,14 +79,14 @@ The surface view class will subclass *GLSurfaceView* and will simply create a re
 OpenGL renderer
 ===============
 
-The majority of the work is done in a class that implement the [GLSurfaceView.Renderer](http://developer.android.com/reference/android/opengl/GLSurfaceView.Renderer.html) interface. This interface requires implementation of three methods - *onSurfaceCreated()*, *onSurfaceChanged()*, and *onDrawFrame()*. Each of these methods will be explained in subsequent sections.
+The majority of the work is done in a class that implement the [GLSurfaceView.Renderer](http://developer.android.com/reference/android/opengl/GLSurfaceView.Renderer.html) interface. This interface requires implementation of three methods - **onSurfaceCreated()**, **onSurfaceChanged()**, and **onDrawFrame()**. Each of these methods will be explained in subsequent sections.
 
-*onSurfaceCreated()*
---------------------
+**onSurfaceCreated()**
+----------------------
 
 This method is called whenever the OpenGL surface is created. Thus it is responsible for tasks such as initialization of the vertex buffer and loading/compiling the shaders.
 
-*Vertex buffers*
+**Vertex buffers**
 
 Since OpenGL ES 2.0 works only with vertex buffers that store vertices for *triangles*, a basic implementation of an initialization method might be:
 
@@ -122,37 +122,28 @@ Since OpenGL ES 2.0 works only with vertex buffers that store vertices for *tria
 
 Alternatively, the vertices could be obtained by parsing a resource file generated by a 3D modeling program such as [Blender](http://www.blender.org/).
 
-*Shader code*
+**Shader code**
 
 OpenGL ES 2.0 uses shaders for all the rendering operations. Hence there needs to be at least one vertex and one fragment shader which are compiled and linked into a shader program. One basic way to include the shader source code is via local strings such as:
 
-> private final String vertexShaderCode =  
-> // This matrix member variable provides a hook to manipulate // the coordinates of the objects that use this vertex shader "uniform mat4 uMVPMatrix; n" +
->
-> "attribute vec4 vPosition; n" + "void main(){ n" +
->
-> // the matrix must be included as a modifier of gl\_Position " gl\_Position = uMVPMatrix \* vPosition; n" + "} n";
->
-> private final String fragmentShaderCode =  
-> "precision mediump float; n" + "void main(){ n" + " gl\_FragColor = vec4 (0.63671875, 0.76953125, 0.22265625, 1.0); n" + "} n";
->
-This shader code should look familiar to those of you with GLSL experience as it is simply a basic vertex shader (takes the vertex as an attribute variable and applies the model-view-projection matrix transformation) and basic fragment shader (sets the fragment color to a constant value). The shaders can then be compiled into a shader object with the following method
+	private final String vertexShaderCode =  
+		"uniform mat4 uMVPMatrix; \n" +
+		"attribute vec4 vPosition; \n" + 
+		"void main(){ \n" +
+		"   gl\_Position = uMVPMatrix \* vPosition; \n" +
+		"} \n";
 
-    private int loadShader(int type, String shaderCode){
+	private final String fragmentShaderCode =  
+		"precision mediump float; \n" + 
+		"void main(){ \n" + 
+		"   gl\_FragColor = vec4 (0.63671875, 0.76953125, 0.22265625, 1.0); \n" + 
+		"} \n";
 
-       // Create shader object of appropriate type
-       int shader = GLES20.glCreateShader(type); 
+This shader code should look familiar to those of you with GLSL experience as it is simply a basic vertex shader (takes the vertex as an attribute variable and applies the model-view-projection matrix transformation) and basic fragment shader (sets the fragment color to a constant value).
 
-       // Compile shader source
-       GLES20.glShaderSource(shader, shaderCode);
-       GLES20.glCompileShader(shader);
+**Creating the surface**
 
-       return shader;
-    }
-
-*Creating the surface*
-
-Hence the *onSurfaceCreated()* method will then create the vertex buffer (via the *init()* method) and create the shader program as
+Hence the **onSurfaceCreated()** method will then create the vertex buffer (via the **init()** method from above) and create the shader program as
 
     private int mProgram;
     private int maPositionHandle;
@@ -181,11 +172,25 @@ Hence the *onSurfaceCreated()* method will then create the vertex buffer (via th
        maPositionHandle = GLES20.glGetAttribLocation(mProgram, "vPosition");
        muMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");
     }
+    
+    private int loadShader(int type, String shaderCode){
 
-*onSurfaceChanged()*
---------------------
+       // Create shader object of appropriate type
+       int shader = GLES20.glCreateShader(type); 
 
-The *onSurfaceChanged()* method is similar to the reshape methods from CS370. Hence it will control adjusting the viewport and/or projection matrix and camera location. Thus the method might be
+       // Compile shader source
+       GLES20.glShaderSource(shader, shaderCode);
+       GLES20.glCompileShader(shader);
+
+       return shader;
+    }
+
+where the **loadShader()** utility method simply compiles the shader sources into corresponding shader objects.
+
+**onSurfaceChanged()**
+----------------------
+
+The **onSurfaceChanged()** method is similar to the *reshape* methods from CS370. Hence it will control adjusting the viewport and/or projection matrix and camera location. Thus the method might be
 
     private float[] mProjMatrix = new float[16];
     private float[] mVMatrix = new float[16];
@@ -204,10 +209,10 @@ The *onSurfaceChanged()* method is similar to the reshape methods from CS370. He
        Matrix.setLookAtM(mVMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
     }
 
-*onDrawFrame()*
----------------
+**onDrawFrame()**
+-----------------
 
-All of the rendering is then accomplished in the *onDrawFrame()* method. Thus this method will be responsible for computing any local transformations and setting the appropriate shader variables. It will also tell the shader which vertices to use in drawing the objects (through the *glDrawArray()* method). Hence a basic method might be
+All of the rendering is then accomplished in the **onDrawFrame()** method. Thus this method will be responsible for computing any local transformations and setting the appropriate shader variables. It will also tell the shader which vertices to use in drawing the objects (through the **glDrawArray()** method). Hence a basic method might be
 
     public float mAngle;
     private float[] mMMatrix = new float[16];
@@ -245,7 +250,7 @@ Refer to the [OpenGL ES documentation](http://developer.android.com/reference/an
 Handling user input (touch events)
 ==================================
 
-Similar to 2D graphics, we can implement a touch event handler in the *GLSurfaceView* subclass to allow for user interaction with the application. For example, an *onTouchEvent()* method to adjust the rotation of the object based on swipe gestures might be
+Similar to 2D graphics, we can implement a touch event handler in the **GLSurfaceView** subclass to allow for user interaction with the application. For example, an **onTouchEvent()** method to adjust the rotation of the object based on swipe gestures might be
 
     private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
     private float mPreviousX;
@@ -271,7 +276,7 @@ Similar to 2D graphics, we can implement a touch event handler in the *GLSurface
 
              // Change direction of rotation to left of the mid-line
              if (x < getWidth() / 2) {
-                dy = dy * -1 ;
+                dy = dy  * -1 ;
              }
 
              // Update rotation angle
