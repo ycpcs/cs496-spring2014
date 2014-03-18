@@ -3,7 +3,7 @@ layout: default
 title: "Assignment 4: Web Application"
 ---
 
-Due: Thurs, Mar 20th by 11:59 PM
+Due: Tues, Mar 25th by 11:59 PM
 
 # Getting started
 
@@ -12,14 +12,9 @@ Download [CS496\_Assign04.zip](CS496_Assign04.zip) and import it into Eclipse.
 Your should see a project called **CS406\_Assign04** in your Eclipse workspace.  Note that this project assumes that you have the **CS496\_Jetty** project in your workspace (from [Assignment 1](assign01.html)).
 
 <div class="callout">
-<b>Important</b>: The initial version of the zipfile contained an incorrect <b>.submit</b> file.  Please fix it as follows:
-<ol>
-<li>Show the Navigator view using <b>Window &rarr; Show View &rarr; Navigator</b></li>
-<li>Find the <b>.submit</b> file in the root folder of the <b>CS496_Assign04</b> project</li>
-<li>Right-click on <b>.submit</b> and choose <b>Open With &rarr; Text Editor</b></li>
-<li>Change the line that reads <b>projectNumber=assign03</b> so that it reads <b>projectNumber=assign04</b></li>
-<li>Save the <b>.submit</b> file and return to the Package Explorer view
-</ol>
+<p>The version of the zipfile posted prior to March 18th had an incorrect <b>.classpath</b> file, meaning that the none of the server-side code (such as the <b>InventoryApp</b> servlet, the controllers, and persistence layer) was actually executed.</p>
+<p><b>To fix</b>: right click the <b>CS496_Assign04</b> project, choose <b>Refactor &rarr; Rename</b>, and rename it as <b>CS496_Assign04_Copy</b>.  Download and import the corrected zipfile.  Copy all of the code in the packages in the <b>src</b> folder from the old project to the new one.</p>
+<p>Make sure that when you submit, you submit the new project.</p>
 </div>
 
 # Your task

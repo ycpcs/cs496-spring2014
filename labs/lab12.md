@@ -94,7 +94,7 @@ In **Panel.java**:
 
 -   Add code to the **checkGameEnd()** method to determine when the ball is within the area of the hole and is "stopped" (i.e. has total velocity less than **ballStopped**). Hint: the ball is within the area if the distance between the center of the hole and the ball is less than the radius of the hole minus the radius of the ball. A **distance()** method has been provided to compute the distance between two points.
 
-The game should now create a ball on the screen with a random velocity. The user's task is to make swipe gestures to change the velocity of the ball in such a way that it stops inside the hole. If/when they achieve this goal, the application should display a congradulatory message similar to:
+The game should now create a ball on the screen with a random velocity. The user's task is to make swipe gestures to change the velocity of the ball in such a way that it stops inside the hole. If/when they achieve this goal, the application should display a congratulatory message similar to:
 
 > ![image](images/lab12/marblemadness.png)
 
