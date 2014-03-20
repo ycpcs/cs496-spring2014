@@ -130,13 +130,13 @@ OpenGL ES 2.0 uses shaders for all the rendering operations. Hence there needs t
 		"uniform mat4 uMVPMatrix; \n" +
 		"attribute vec4 vPosition; \n" + 
 		"void main(){ \n" +
-		"   gl\_Position = uMVPMatrix \* vPosition; \n" +
+		"   gl_Position = uMVPMatrix * vPosition; \n" +
 		"} \n";
 
 	private final String fragmentShaderCode =  
 		"precision mediump float; \n" + 
 		"void main(){ \n" + 
-		"   gl\_FragColor = vec4 (0.63671875, 0.76953125, 0.22265625, 1.0); \n" + 
+		"   gl_FragColor = vec4 (0.63671875, 0.76953125, 0.22265625, 1.0); \n" + 
 		"} \n";
 
 This shader code should look familiar to those of you with GLSL experience as it is simply a basic vertex shader (takes the vertex as an attribute variable and applies the model-view-projection matrix transformation) and basic fragment shader (sets the fragment color to a constant value).
