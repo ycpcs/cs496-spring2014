@@ -206,7 +206,7 @@ The **onSurfaceChanged()** method is similar to the *reshape* methods from CS370
        Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
 
        // Set camera modelview matrix
-       Matrix.setLookAtM(mVMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+       Matrix.setLookAtM(mVMatrix, 0, 0, 0, 2.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
     }
 
 **onDrawFrame()**
@@ -242,7 +242,8 @@ All of the rendering is then accomplished in the **onDrawFrame()** method. Thus 
        GLES20.glUniformMatrix4fv(muMVPMatrixHandle, 1, false, mMVPMatrix, 0);
 
        // Draw geometry
-       GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);    
+       GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, 3);
+       GLES20.glDisableVertexAttribArray(maPositionHandle);    
     }
 
 Refer to the [OpenGL ES documentation](http://developer.android.com/reference/android/opengl/GLES20.html) for more information about the various OpenGL functions.
