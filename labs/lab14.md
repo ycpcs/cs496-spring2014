@@ -13,7 +13,7 @@ You should see a project called **CS496\_Lab14**.
 Real Persistence
 ================
 
-The project you imported is a combination of [Assignment 1](../assign/assign01.html) and [Assignment 4](assign/assign04.html).  Specifically, it is *both* a web service and a web application.  (It's a floor wax *and* a dessert topping.)
+The project you imported is a combination of [Assignment 1](../assign/assign01.html) and [Assignment 4](assign/assign04.html).  Specifically, it is *both* a web service and a web application.  ("It's a floor wax *and* a dessert topping.")
 
 The only difference between the lab and the assignments it is based on is that it has a new implementation of the **IDatabase** interface called **SqliteDatabase**, which (as specified in the **Database** class) is the implementation that will be used when the program runs.
 
