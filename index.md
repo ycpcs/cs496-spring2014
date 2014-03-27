@@ -17,6 +17,7 @@ All information about the course will be posted here.
 
 ## News
 
+* **Mar 25** - Reminder: the Minimal Working System demos will take place in class on Thursday, April 3rd.
 * **Mar 18** - The due date for [Assignment 4](assign/assign04.html) has been extended again, to Tues, Mar 25th.
 * **Mar 13** - The due date for [Assignment 4](assign/assign04.html) has been extended to Thurs, Mar 20th.
 * **Mar 11** - [Assignment 4](assign/assign04.html) is due Tues, Mar 18th by 11:59 PM.  It is an **individual** assignment.
