@@ -203,7 +203,7 @@ The **onSurfaceChanged()** method is similar to the *reshape* methods from CS370
        float ratio = (float) width / height;
 
        // Create perspective projection matrix
-       Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+       Matrix.frustumM(mProjMatrix, 0, -ratio, ratio, -1, 1, 1, 3);
 
        // Set camera modelview matrix
        Matrix.setLookAtM(mVMatrix, 0, 0, 0, 2.0f, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
