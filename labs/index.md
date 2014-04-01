@@ -20,3 +20,4 @@ Although the labs are not graded and you are not required to submit them, they a
 > Mar 18 | [Lab 12: Marble Madness](lab12.html) | [CS496\_Lab12.zip](CS496_Lab12.zip)
 > Mar 20 | [Lab 13: Mobile OpenGL](lab13.html) | [CS496\_Lab13.zip](CS496_Lab13.zip)
 > Mar 25 | [Lab 14: Real Persistence](lab14.html) | [CS496\_Lab14.zip](CS496_Lab14.zip)
+> Apr 1  | [Lab 16: Notes App with SQLite](lab16.html) | [CS496\_Lab16.zip](CS496_Lab16.zip)

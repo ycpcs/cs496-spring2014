@@ -26,8 +26,8 @@ announced in class and on the course web page.
 > Tues, Mar 18 | [Lecture 12: Basic Android 2D graphics](lectures/lecture12.html) | [Canvas and Drawables](http://developer.android.com/guide/topics/graphics/2d-graphics.html)
 > Thurs, Mar 20 | [Lecture 13: Basic Android 3D graphics](lectures/lecture13.html) | [Displaying Graphics with OpenGL ES](http://developer.android.com/training/graphics/opengl/index.html)
 > Tues, Mar 25 | [Lecture 14: Databases, SQL, JDBC](lectures/lecture14.html)
-> Thurs, Mar 27 | Lecture 15: Modeling has-A relationships
-> Tues, Apr 1 | Lecture 16: Android and SQLite
+> Thurs, Mar 27 | [Lecture 15: Modeling has-A relationships](lectures/lecture15.html)
+> Tues, Apr 1 | [Lecture 16: Android and SQLite](lectures/lecture16.html) | [Saving Data in SQL Databases](http://developer.android.com/training/basics/data-storage/databases.html)
 
 <!-- vim:set wrap: ­-->
 <!-- vim:set linebreak: -->
