@@ -17,6 +17,7 @@ All information about the course will be posted here.
 
 ## News
 
+* **Apr 29** - [Lab 14](labs/lab14.html) has been updated to include a version which uses Derby rather than SQLite.  This should serve as a good model for your persistence layer.  (Derby is a better choice than SQLite when multiple clients will be making requests concurrently, which is the case for pretty much every web application and web service.)
 * **Mar 25** - Reminder: the Minimal Working System demos will take place in class on Thursday, April 3rd.
 * **Mar 18** - The due date for [Assignment 4](assign/assign04.html) has been extended again, to Tues, Mar 25th.
 * **Mar 13** - The due date for [Assignment 4](assign/assign04.html) has been extended to Thurs, Mar 20th.
