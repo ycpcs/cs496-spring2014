@@ -15,4 +15,4 @@ This page lists the assignments and due dates.
 > Assignment 6: 50% Working System | Team | TBD | Tues, Apr 15th in class
 > Assignment 7: [Team Project Report](project.html) | Team | n/a | Tues, May 13th by 11:59 PM
 > Assignment 8: [Team Project Presentation](presentationGuidelines.html) | Team | n/a | Tues, May 13th 10:15 AM - 12:15 PM
-> Assignment 9: Team Project Self/Peer Evaluation | Individual | TBD | Tues, May 13th by 11:59 PM
+> Assignment 9: [Team Project Self/Peer Evaluation](assign09.html) | Individual | [PeerReview.doc](PeerReview.doc) | Tues, May 13th by 11:59 PM

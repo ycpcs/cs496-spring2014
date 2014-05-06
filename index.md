@@ -17,6 +17,7 @@ All information about the course will be posted here.
 
 ## News
 
+* **May 6** - The [Self/Peer Evaluation](assign/assign09.html) is due Tuesday, May 13th by 11:59 PM.
 * **Mar 25** - Reminder: the Minimal Working System demos will take place in class on Thursday, April 3rd.
 * **Mar 18** - The due date for [Assignment 4](assign/assign04.html) has been extended again, to Tues, Mar 25th.
 * **Mar 13** - The due date for [Assignment 4](assign/assign04.html) has been extended to Thurs, Mar 20th.
